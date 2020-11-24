@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public class FlatMap<T> implements Iterator<T> {
     private final Iterator<Iterator<T>> data;
-    private Iterator<T> cursor;
+    private Iterator<T> cursor = Collections.emptyIterator();
 
     public FlatMap(Iterator<Iterator<T>> data) {
         this.data = data;
@@ -15,12 +15,12 @@ public class FlatMap<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        cursor = Collections.emptyIterator();
-
         if (cursor == null) {
             return false;
         }
-
+        while(!cursor.hasNext() && data.hasNext()) {
+            cursor = data.next();
+        }
         return true;
     }
 
@@ -29,7 +29,6 @@ public class FlatMap<T> implements Iterator<T> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-
         return cursor.next();
     }
 
