@@ -2,6 +2,7 @@ package ru.job4j.iterator;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.TreeSet;
 
 public class EvenNumbersIterator implements Iterator<Integer> {
     private int[] numbers;
@@ -13,8 +14,10 @@ public class EvenNumbersIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        if (numbers[point] % 2 == 0) {
-            return true;
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[point] % 2 == 0) {
+                return true;
+            }
         }
         return false;
     }
