@@ -21,7 +21,7 @@ public class RoleStore implements Store<User> {
     public boolean replace(String id, User model) {
         for (int i = 0; i < rol.size(); i++) {
             if (rol.get(i).getId().equals(id)) {
-                rol.replaceAll((UnaryOperator<User>) model);
+                rol.set(i, model);
                 return true;
             }
         }
