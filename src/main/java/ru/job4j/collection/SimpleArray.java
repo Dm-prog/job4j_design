@@ -9,7 +9,7 @@ public class SimpleArray<T> implements Iterable<T> {
     private static int expectedModCount = 0;
 
     public T get(int index) {
-        if (Objects.checkIndex(index, container.length) == index) {
+        if (Objects.checkIndex(modCount, container.length) <= index) {
             return (T) container[index];
         }
         return null;
@@ -17,21 +17,23 @@ public class SimpleArray<T> implements Iterable<T> {
 
     public void add(T model) {
         Object[] copyContainer = new Object[container.length + 1];
-        System.arraycopy(container, 0, copyContainer, 0, container.length);
-        copyContainer[container.length] = model;
-        modCount++;
+        container[modCount++] = model;
+        if (container.length == modCount) {
+            System.arraycopy(container, 0, copyContainer, 0, container.length);
+            container = copyContainer;
+        }
     }
 
     @Override
     public Iterator<T> iterator() {
-        for (Iterator<T> it = (Iterator<T>) Arrays.stream(container).iterator(); it.hasNext(); ) {
+        for (int i = 0; i < container.length; i++) {
             expectedModCount++;
-            if (!it.hasNext()) {
+            if (modCount > container.length) {
                 throw new NoSuchElementException();
             }
-        }
-        if (expectedModCount != modCount) {
-            throw new ConcurrentModificationException();
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
         }
         return (Iterator<T>) Arrays.stream(container).iterator();
     }
