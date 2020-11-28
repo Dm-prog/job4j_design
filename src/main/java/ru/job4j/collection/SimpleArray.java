@@ -7,21 +7,18 @@ public class SimpleArray<T> implements Iterable<T> {
     private Object[] container = new Object[10];
     private static int modCount = 0;
     private static int expectedModCount = 0;
+    private int count = 0;
 
     public T get(int index) {
-        if (Objects.checkIndex(modCount, container.length) <= index) {
+        if (Objects.checkIndex(index, count) <= container.length) {
             return (T) container[index];
         }
         return null;
     }
 
     public void add(T model) {
-        Object[] copyContainer = new Object[container.length + 1];
-        container[modCount++] = model;
-        if (container.length == modCount) {
-            System.arraycopy(container, 0, copyContainer, 0, container.length);
-            container = copyContainer;
-        }
+        container[count++] = model;
+        modCount++;
     }
 
     @Override
