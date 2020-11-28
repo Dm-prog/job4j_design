@@ -4,40 +4,57 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
-    int[] values = new int[5];
+    Object[] values = new Object[5];
+    Object[] copyValues = new Object[values.length - 1];
 
     @Override
     public Iterator<T> iterator() {
+        for (int i = 0; i < values.length; i++) {
+
+        }
         return null;
     }
 
     public void add(T model) {
-        for (int t : values) {
-            if (Objects.checkIndex(t, values.length) == 0) {
-                t = (int) model;
+        for (Object o : values) {
+            if (o == null) {
+                o = model;
             }
         }
     }
 
     public void set(int index, T model) {
         for (int i = 0; i < values.length; i++) {
-            if (Objects.checkIndex(values[i], values.length) == index) {
-                values[i] = (int) model;
+            if (Objects.checkIndex(index, values.length) < values.length) {
+                values[index] = model;
             }
         }
     }
 
     public void remove(int index) {
-        int[] copyValue = new int[5];
-        for (int i = 0; i < values.length; i++) {
-            if (Objects.checkIndex(values[i], values.length) == index) {
-                System.arraycopy(values, index, copyValue, 0, values.length);
+        for (int i = index; i < values.length; i++) {
+            if (Objects.checkIndex(index, values.length) < values.length) {
+                if (i == index) {
+                    values[i] = null;
+                    for (int k = i + 1; k < values.length; k++) {
+                        values[k - 1] = values[k];
+                    }
+                    values[values.length - 1] = null;
+                    break;
+                }
             }
         }
+        System.arraycopy(values, 0, copyValues, 0, values.length - 1);
+        values = copyValues;
     }
 
     public int get(int index) {
-        return index;
+        for (int i = 0; i < values.length; i++) {
+            if (i == index) {
+                return index;
+            }
+        }
+        return 0;
     }
 }
 
