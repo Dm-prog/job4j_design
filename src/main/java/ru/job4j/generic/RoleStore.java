@@ -1,51 +1,25 @@
 package ru.job4j.generic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.UnaryOperator;
-
 public class RoleStore implements Store<User> {
-    private final List<User> rol = new ArrayList<>();
-
+    private final Store<User> store = new MemStore<>();
 
     @Override
     public void add(User model) {
-        for (User user : rol) {
-            if (findById(user.getId()) == null) {
-                rol.add(model);
-            }
-        }
+        store.add(model);
     }
 
     @Override
     public boolean replace(String id, User model) {
-        for (int i = 0; i < rol.size(); i++) {
-            if (rol.get(i).getId().equals(id)) {
-                rol.set(i, model);
-                return true;
-            }
-        }
-        return false;
+        return store.replace(id, model);
     }
 
     @Override
     public boolean delete(String id) {
-        for (int i = 0; i < rol.size(); i++) {
-            if (rol.get(i).equals(id)) {
-                rol.remove(i);
-                return true;
-            }
-        }
-        return false;
+        return store.delete(id);
     }
 
     @Override
     public User findById(String id) {
-        for (int i = 0; i < rol.size(); i++) {
-            if (rol.get(i).equals(id)) {
-                return rol.get(i);
-            }
-        }
-        return null;
+        return findById(id);
     }
 }
