@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SimpleArray<T> implements Iterable<T> {
 
-    private Object[] container = new Object[10];
+    private final Object[] container = new Object[10];
     private static int modCount = 0;
     private static int expectedModCount = 0;
     private int count = 0;
