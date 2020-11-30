@@ -9,11 +9,7 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public void add(T model) {
-        for (T t : mem) {
-            if (findById(t.getId()) == null) {
-                mem.add(model);
-            }
-        }
+        mem.add(model);
     }
 
     @Override
@@ -29,9 +25,9 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public boolean delete(String id) {
-        for (int i = 0; i < mem.size(); i++) {
-            if (mem.get(i).getId().equals(id)) {
-                mem.remove(i);
+        for (T t : mem) {
+            if (t.getId().equals(id)) {
+                mem.remove(t);
                 return true;
             }
         }
