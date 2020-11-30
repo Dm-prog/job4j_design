@@ -6,6 +6,7 @@ import java.util.Objects;
 public class SimpleArray<T> implements Iterable<T> {
     Object[] values = new Object[5];
     Object[] copyValues = new Object[values.length - 1];
+    int count = 0;
 
     @Override
     public Iterator<T> iterator() {
@@ -16,11 +17,7 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void add(T model) {
-        for (Object o : values) {
-            if (o == null) {
-                o = model;
-            }
-        }
+        values[count++] = model;
     }
 
     public void set(int index, T model) {
