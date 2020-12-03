@@ -22,9 +22,8 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        int expectedModCount = modCount;
         return new Iterator<T>() {
-
+            int expectedModCount = modCount;
             @Override
             public boolean hasNext() {
                     if (expectedModCount != modCount) {
@@ -38,7 +37,7 @@ public class SimpleArray<T> implements Iterable<T> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return (T) container[modCount++];
+                return (T) container[expectedModCount++];
             }
         };
     }
