@@ -5,8 +5,7 @@ import java.util.*;
 public class SimpleArray<T> implements Iterable<T> {
 
     private final Object[] container = new Object[10];
-    private static int modCount = 0;
-    private static int expectedModCount = 0;
+    private int modCount = 0;
     private int count = 0;
 
     public T get(int index) {
@@ -23,15 +22,24 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        for (int i = 0; i < container.length; i++) {
-            expectedModCount++;
-            if (modCount > container.length) {
-                throw new NoSuchElementException();
+        int expectedModCount = modCount;
+        return new Iterator<T>() {
+
+            @Override
+            public boolean hasNext() {
+                    if (expectedModCount != modCount) {
+                        throw new ConcurrentModificationException();
+                    }
+                return false;
             }
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+
+            @Override
+            public T next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return (T) container[modCount++];
             }
-        }
-        return (Iterator<T>) Arrays.stream(container).iterator();
+        };
     }
 }
