@@ -24,7 +24,8 @@ public class SimpleArrayTest {
     @Test
     public void iterator() {
         array.add(1);
-        assertThat(array.iterator().next(), is(1));
-        assertThat(array.iterator().hasNext(), is(true));
+        Iterator<Integer> simpleArray = array.iterator();
+        assertThat(simpleArray.next(), is(1));
+        assertThat(simpleArray.hasNext(), is(false));
     }
 }
