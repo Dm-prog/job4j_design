@@ -1,9 +1,6 @@
 package ru.job4j.generics;
 
-import org.hamcrest.Matchers;
-import org.junit.Before;
 import org.junit.Test;
-import ru.job4j.iterator.FlatMap;
 
 import java.util.Iterator;
 import java.util.List;
@@ -26,9 +23,8 @@ public class SimpleArrayTest {
 
     @Test
     public void iterator() {
-        Iterator<Integer> it = List.of(1).iterator();
-
-        assertThat(it.next(), is(1));
-        assertThat(it.hasNext(), is(false));
+        array.add(1);
+        assertThat(array.iterator().next(), is(1));
+        assertThat(array.iterator().hasNext(), is(true));
     }
 }

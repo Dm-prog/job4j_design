@@ -11,14 +11,15 @@ public class SimpleArray<T> implements Iterable<T> {
     public Iterator<T> iterator() {
 
         return new Iterator<T>() {
+            int index = 0;
             @Override
             public boolean hasNext() {
-                return false;
+                return index < count;
             }
 
             @Override
             public T next() {
-                return null;
+                return (T) values[index++];
             }
         };
     }
