@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class SimpleArray<T> implements Iterable<T> {
-    Object[] values = new Object[5];
-    int count = 0;
+    private Object[] values = new Object[5];
+    private int count = 0;
 
     @Override
     public Iterator<T> iterator() {
@@ -28,28 +28,19 @@ public class SimpleArray<T> implements Iterable<T> {
     }
 
     public void set(int index, T model) {
-        if (Objects.checkIndex(index, values.length) <= values.length) {
-            values[index] = model;
-        }
+        Objects.checkIndex(index, count);
+        values[index] = model;
+
     }
 
     public void remove(int index) {
-        Object[] copyValues = new Object[values.length - 1];
-        if (Objects.checkIndex(index, values.length) <= values.length) {
-            if (count == index) {
-                values[count] = null;
-                for (int k = count + 1; k < values.length; k++) {
-                    values[k - 1] = values[k];
-                }
-                values[values.length - 1] = null;
-            }
-        }
-        System.arraycopy(values, 0, copyValues, 0, values.length - 1);
-        values = copyValues;
+        Objects.checkIndex(index, count);
+        System.arraycopy(values, index + 1, values, index, count - index);
     }
 
-    public int get(int index) {
-        return index;
+    public T get(int index) {
+        Objects.checkIndex(index, count);
+        return (T) values[index];
     }
 }
 
