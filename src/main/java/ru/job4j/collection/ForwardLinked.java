@@ -14,7 +14,7 @@ public class ForwardLinked<T> implements Iterable<T> {
             Node<T> oldFirst = first; //получаем ссылку на удаляемый элемент
             first = first.next;       //удаляем первый  путем присвоения полю класса нового значения
             oldFirst.next = null;     //обнуляем ссылку next у удаляемой ноды чтоб избежать утечки памяти
-            return (T) first;
+            return oldFirst.value;    //возвращаем значение из удаленной ноды
         }
     }
 
