@@ -8,9 +8,14 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public T deleteFirst() {
         if (head != null) {
-            return head.value;
+            return null;
+        } else {
+            Node<T> first = this.head;
+            Node<T> oldFirst = first; //получаем ссылку на удаляемый элемент
+            first = first.next;       //удаляем первый  путем присвоения полю класса нового значения
+            oldFirst.next = null;     //обнуляем ссылку next у удаляемой ноды чтоб избежать утечки памяти
+            return (T) first;
         }
-        return  null;
     }
 
     public void add(T value) {
