@@ -9,6 +9,7 @@ public class Conteiner<E> implements Iterable<E> {
     private Node<E> node;
     private static int modCount;
     private static int expectedModCount;
+    private int size;
 
     @Override
     public Iterator<E> iterator() {
@@ -20,7 +21,7 @@ public class Conteiner<E> implements Iterable<E> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return position < expectedModCount;
+                return position < size;
             }
 
             @Override
@@ -30,6 +31,7 @@ public class Conteiner<E> implements Iterable<E> {
                 }
                 E value = node.value;
                 node = node.next;
+                position++;
                 return value;
             }
         };
@@ -49,17 +51,24 @@ public class Conteiner<E> implements Iterable<E> {
         Node<E> node = new Node<E>(value, null);
         if (this.node == null) {
             this.node = node;
+            size++;
             return;
         }
         Node<E> tail = this.node;
         while (tail.next != null) {
             tail = tail.next;
+            size--;
         }
         tail.next = node;
         modCount++;
     }
 
     public E get(int index) {
+//        while (node.next != null) {
+//            if (index == modCount) {
+//                return
+//            }
+//        }
         Objects.checkIndex(index, modCount);
         return node.value;
     }
