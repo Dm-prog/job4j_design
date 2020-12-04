@@ -16,6 +16,7 @@ public class Conteiner<E> implements Iterable<E> {
         return new Iterator<E>() {
             final int expectedModCount = modCount;
             int position;
+
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
@@ -64,12 +65,13 @@ public class Conteiner<E> implements Iterable<E> {
     }
 
     public E get(int index) {
-//        while (node.next != null) {
-//            if (index == modCount) {
-//                return
-//            }
-//        }
-        Objects.checkIndex(index, modCount);
+        Objects.checkIndex(index, modCount); // нужно вначале проверить что индекс меньше длины списка
+        while (node != null) {               //затем запустить цикл и считать попутно операции
+            modCount++;
+            if (modCount == index) {         //как только счетчик итераций стал равен индексу
+                break;                       //то значит вы нашли нужную ноду
+            }
+        }
         return node.value;
     }
 }
