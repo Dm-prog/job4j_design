@@ -66,9 +66,11 @@ public class Conteiner<E> implements Iterable<E> {
 
     public E get(int index) {
         Objects.checkIndex(index, modCount); // нужно вначале проверить что индекс меньше длины списка
+        Node<E> node = this.node;            //перед циклом получить ссылку на начало
         while (node != null) {               //затем запустить цикл и считать попутно операции
-            modCount++;
-            if (modCount == index) {         //как только счетчик итераций стал равен индексу
+            this.node = this.node.next;      //в цикле менять ссылки
+            expectedModCount++;
+            if (expectedModCount == index) { //как только счетчик итераций стал равен индексу
                 break;                       //то значит вы нашли нужную ноду
             }
         }
