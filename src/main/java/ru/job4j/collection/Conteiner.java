@@ -7,8 +7,7 @@ import java.util.Objects;
 
 public class Conteiner<E> implements Iterable<E> {
     private Node<E> node;
-    private static int modCount;
-    private static int expectedModCount;
+    private int modCount;
     private int size;
 
     @Override
@@ -65,15 +64,13 @@ public class Conteiner<E> implements Iterable<E> {
     }
 
     public E get(int index) {
-        Objects.checkIndex(index, modCount); // нужно вначале проверить что индекс меньше длины списка
-        Node<E> node = this.node;            //перед циклом получить ссылку на начало
-        while (node != null) {               //затем запустить цикл и считать попутно операции
-            this.node = this.node.next;      //в цикле менять ссылки
-            expectedModCount++;
-            if (expectedModCount == index) { //как только счетчик итераций стал равен индексу
-                break;                       //то значит вы нашли нужную ноду
-            }
+        Objects.checkIndex(index, size);
+        int count = 0;
+        Node<E> find = this.node;
+        while (count < size) {
+            find = find.next;
+            count++;
         }
-        return node.value;
+        return find.value;
     }
 }
