@@ -10,4 +10,11 @@ public class SimpleStack<T> {
     public void push(T value) {
         linked.add(value);
     }
+
+    public boolean isEmpty() {
+        if (linked.iterator().hasNext()) {
+            return false;
+        }
+        return true;
+    }
 }
