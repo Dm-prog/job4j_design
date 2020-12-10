@@ -32,6 +32,7 @@ public class Conteiner<E> implements Iterable<E> {
                 Node<E> current = node;
                 E value = current.value;
                 current = current.next;
+                position++;
                 return value;
             }
         };
