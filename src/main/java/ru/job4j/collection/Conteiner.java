@@ -29,9 +29,9 @@ public class Conteiner<E> implements Iterable<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E value = node.value;
-                node = node.next;
-                position++;
+                Node<E> current = node;
+                E value = current.value;
+                current = current.next;
                 return value;
             }
         };
@@ -57,17 +57,17 @@ public class Conteiner<E> implements Iterable<E> {
         Node<E> tail = this.node;
         while (tail.next != null) {
             tail = tail.next;
-            size--;
         }
         tail.next = node;
         modCount++;
+        size++;
     }
 
     public E get(int index) {
         Objects.checkIndex(index, size);
         int count = 0;
         Node<E> find = this.node;
-        while (count < size) {
+        while (count < index) {
             find = find.next;
             count++;
         }
