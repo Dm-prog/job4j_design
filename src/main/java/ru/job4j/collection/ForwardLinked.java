@@ -1,11 +1,11 @@
 package ru.job4j.collection;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
+    Conteiner conteiner = new Conteiner<>();
 
     public T deleteFirst() {
         if (head == null) {
@@ -19,13 +19,16 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public T deleteLast() {
-        if (head == null) {
-            throw new NoSuchElementException();
-        } else {
-            add(head.value);
-            deleteFirst();
-            return head.value;
+        Node<T> prev;
+        Node<T> next = head.next;
+        while (head.next != null) {
+            prev = head;
+            head = next;
+            next = next.next;
+            next.next = prev;
         }
+        head.next = null;
+        return head.value;
     }
 
     public void add(T value) {
@@ -42,8 +45,17 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void revert() {
-        //TODO impl reverts of linked list.
-        LinkedList list;
+        Node<T> first = head;
+        Node<T> next = head.next;
+        Node<T> prev;
+
+        while (next != null) {
+            prev = head;
+            head = next;
+            next = next.next;
+            head.next = prev;
+        }
+        first.next = null;
     }
 
     @Override
