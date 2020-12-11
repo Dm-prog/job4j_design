@@ -15,6 +15,7 @@ public class Conteiner<E> implements Iterable<E> {
         return new Iterator<E>() {
             final int expectedModCount = modCount;
             int position;
+            Node<E> current = node;
 
             @Override
             public boolean hasNext() {
@@ -29,7 +30,6 @@ public class Conteiner<E> implements Iterable<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                Node<E> current = node;
                 E value = current.value;
                 current = current.next;
                 position++;
