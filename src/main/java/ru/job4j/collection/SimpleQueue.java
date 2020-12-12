@@ -8,7 +8,6 @@ public class SimpleQueue<T> {
         if (out.isEmpty()) {
             while (!in.isEmpty()) {
                 out.push(in.pop());
-                //return out.pop();
             }
         }
         return out.pop();
