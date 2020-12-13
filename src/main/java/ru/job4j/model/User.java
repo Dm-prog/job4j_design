@@ -16,14 +16,19 @@ public class User {
         Map<User, Object> map = new HashMap<>();
         map.put(user1, new Object());
         map.put(user2, new Object());
-        System.out.println(user1.hashCode());
-        System.out.println(user2.hashCode());
+        System.out.println(map.size());
+
     }
 
     public User(String name, int children, Calendar birthday) {
         this.name = name;
         this.children = children;
         this.birthday = birthday;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
     }
 
     @Override
