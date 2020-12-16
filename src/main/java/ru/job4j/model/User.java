@@ -3,12 +3,12 @@ package ru.job4j.model;
 import java.util.*;
 
 public class User {
-    private String name;
-    private int children;
-    private Calendar birthday;
+    private final String name;
+    private final int children;
+    private final Calendar birthday;
 
     public static void main(String[] args) {
-        Calendar calendar = new GregorianCalendar(2000,Calendar.JANUARY,15);
+        Calendar calendar = new GregorianCalendar(2000, Calendar.JANUARY, 15);
 
         User user1 = new User("Иван", 5, calendar);
         User user2 = new User("Иван", 5, calendar);
