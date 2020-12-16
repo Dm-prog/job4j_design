@@ -1,11 +1,11 @@
 package ru.job4j.collection;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public class SimpleHashMap<K, V> implements Iterator<K> {
-    Map<K, V> map = new HashMap<>();
+    private final Map<K, V> map = new HashMap<>();
+    private final Iterator<K> cursor = Collections.emptyIterator();
+    private Node<K, V>[] storage;
 
     public static String binary(int num) {
         StringBuilder sb = new StringBuilder();
@@ -19,19 +19,44 @@ public class SimpleHashMap<K, V> implements Iterator<K> {
 
     @Override
     public boolean hasNext() {
+        for (K key : map.keySet()) {
+            if (key != null) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public K next() {
-        return null;
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
+        return cursor.next();
     }
 
     public boolean insert(K key, V value) {
+        if (storage.length * 0.75 > 12) {
+            storage = Arrays.copyOf(storage, storage.length * 2);
+        }
         return true;
     }
 
     public V get(K key) {
         return null;
+    }
+
+    public static class Node<K, V> {
+        private K key;
+        private V value;
+
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
     }
 }
