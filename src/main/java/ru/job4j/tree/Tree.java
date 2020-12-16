@@ -20,6 +20,7 @@ class Tree<E> implements SimpleTree<E> {
     }
 
     public boolean isBinary() {
+
         return false;
     }
 
