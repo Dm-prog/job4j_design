@@ -6,6 +6,8 @@ public class SimpleHashMap<K, V> implements Iterator<K> {
     private final Map<K, V> map = new HashMap<>();
     private final Iterator<K> cursor = Collections.emptyIterator();
     private Node<K, V>[] storage;
+    private int count = 0; // количество элементов в мапе
+    private static final float LOAD_FACTOR = 0.75f;
 
     public static String binary(int num) {
         StringBuilder sb = new StringBuilder();
@@ -15,6 +17,11 @@ public class SimpleHashMap<K, V> implements Iterator<K> {
             num /= 2;
         }
         return sb.reverse().toString();
+    }
+
+    //Создать хэш функцию, которая принимает ключ типа K и возвращает key.hashCode() & storage.length
+    public int hashFunction(K key) {
+        return key.hashCode() & storage.length;
     }
 
     @Override
