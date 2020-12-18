@@ -11,17 +11,18 @@ public class Analize {
 
 
     public Info diff(List<User> previous, List<User> current) {
-        for(int i = 0; i < previous.size(); i++){
-            for(int j = 0; j < previous.size(); j++){
-                if(previous.get(i).equals(current.get(j))){
-
-                }else{
-                    System.out.println("Элемент " + i +
-                            " первого массива не равен элементу " + j + " второго массива.");
+        for (int i = 0; i < previous.size(); i++) {
+            for (int j = 0; j < previous.size(); j++) {
+                if (!previous.get(i).equals(current.get(j))) {
+                    info.add();
+                } else if (!previous.get(i).getName().equals(current.get(j).getName())) {
+                    info.chang();
+                } else if (!previous.contains(current)) {
+                    info.delete();
                 }
             }
         }
-        return new Info(info.added, info.chang(), info.delete());
+        return new Info();
     }
 
     public static class User {
@@ -67,6 +68,18 @@ public class Analize {
         public Info(int added, int changed, int deleted) {
             this.added = added;
             this.changed = changed;
+            this.deleted = deleted;
+        }
+
+        public void setAdded(int added) {
+            this.added = added;
+        }
+
+        public void setChanged(int changed) {
+            this.changed = changed;
+        }
+
+        public void setDeleted(int deleted) {
             this.deleted = deleted;
         }
 
