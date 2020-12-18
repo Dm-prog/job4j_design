@@ -2,11 +2,10 @@ package ru.job4j.collection;
 
 import java.util.*;
 
-public class SimpleHashMap<K, V> implements Iterator<K> {
-    private final Map<K, V> map = new HashMap<>();
-    private final Iterator<K> cursor = Collections.emptyIterator();
-    private Node<K, V>[] storage;
-    private int count = 0; // количество элементов в мапе
+public class SimpleHashMap<K, V> implements Iterable<K> {
+    private final Node<K, V>[] storage = new Node[16];
+    private int count = 0;
+    private int modCount;
     private static final float LOAD_FACTOR = 0.75f;
 
     public static String binary(int num) {
@@ -19,38 +18,47 @@ public class SimpleHashMap<K, V> implements Iterator<K> {
         return sb.reverse().toString();
     }
 
-    //Создать хэш функцию, которая принимает ключ типа K и возвращает key.hashCode() & storage.length
     public int hashFunction(K key) {
-        return key.hashCode() & storage.length;
-    }
-
-    @Override
-    public boolean hasNext() {
-        for (K key : map.keySet()) {
-            if (key != null) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public K next() {
-        if (!hasNext()) {
-            throw new NoSuchElementException();
-        }
-        return cursor.next();
+        return key.hashCode() % storage.length;
     }
 
     public boolean insert(K key, V value) {
-        if (storage.length * 0.75 > 12) {
-            storage = Arrays.copyOf(storage, storage.length * 2);
+        int hash = hashFunction(key); // получаем позицию в таблице
+        boolean result = false; // пока мы не вставили результат false
+        if (storage[hash] == null) { // проверяем занято ли место
+            // место свободно
+            storage[hash] = new Node<>(key, value); // делаем вставку
+            count++; // число элементов увеличилось
+            modCount++; // коллекцию мы изменили, а значит число модификаций увеличилось
+            result = true; // нам удалось вставить
         }
-        return true;
+        return result;
     }
 
     public V get(K key) {
-        return null;
+        int index = hashFunction(key);
+        if (storage[index] == null || !storage[index].getKey().equals(key)) {
+            return null;
+        }
+        return storage[index].getValue();
+    }
+
+    @Override
+    public Iterator<K> iterator() {
+        return new Iterator<>() {
+            @Override
+            public boolean hasNext() {
+                return false;
+            }
+
+            @Override
+            public K next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return null;
+            }
+        };
     }
 
     public static class Node<K, V> {
@@ -64,6 +72,10 @@ public class SimpleHashMap<K, V> implements Iterator<K> {
 
         public K getKey() {
             return key;
+        }
+
+        public V getValue() {
+            return value;
         }
     }
 }
