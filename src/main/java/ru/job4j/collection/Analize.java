@@ -11,7 +11,16 @@ public class Analize {
 
 
     public Info diff(List<User> previous, List<User> current) {
+        for(int i = 0; i < previous.size(); i++){
+            for(int j = 0; j < previous.size(); j++){
+                if(previous.get(i).equals(current.get(j))){
 
+                }else{
+                    System.out.println("Элемент " + i +
+                            " первого массива не равен элементу " + j + " второго массива.");
+                }
+            }
+        }
         return new Info(info.added, info.chang(), info.delete());
     }
 
