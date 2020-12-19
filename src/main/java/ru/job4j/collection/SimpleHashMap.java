@@ -46,8 +46,15 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
     @Override
     public Iterator<K> iterator() {
         return new Iterator<>() {
+            private int point = 0;
             @Override
             public boolean hasNext() {
+                for (int i = point; i < storage.length; i++) {
+                    if (storage[i] != null) {
+                        point = i;
+                        return true;
+                    }
+                }
                 return false;
             }
 
@@ -56,7 +63,7 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return null;
+                return storage[point++].getKey();
             }
         };
     }
