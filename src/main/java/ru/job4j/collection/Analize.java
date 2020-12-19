@@ -1,8 +1,6 @@
 package ru.job4j.collection;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Analize {
     Info info = new Info();
@@ -11,17 +9,32 @@ public class Analize {
 
 
     public Info diff(List<User> previous, List<User> current) {
-        for (int i = 0; i < previous.size(); i++) {
-            for (int j = 0; j < previous.size(); j++) {
-                if (!previous.get(i).equals(current.get(j))) {
+        Map<Integer, User> map = new HashMap<>();
+        for (User user : current) {
+            map.put(user.id, user);
+        }
+        for (Map.Entry<Integer, User> entry : map.entrySet()) {
+            for (User user : previous) {
+                if (!entry.getValue().equals(user)) {
                     info.add();
-                } else if (!previous.get(i).getName().equals(current.get(j).getName())) {
+                } else if (!entry.getValue().getName().equals(user.getName())) {
                     info.chang();
-                } else if (!previous.contains(current)) {
+                } else if (!entry.getKey().equals(user.id)) {
                     info.delete();
                 }
             }
         }
+//        for (int i = 0; i < previous.size(); i++) {
+//            for (int j = 0; j < previous.size(); j++) {
+//                if (!previous.get(i).equals(current.get(j))) {
+//                    info.add();
+//                } else if (!previous.get(i).getName().equals(current.get(j).getName())) {
+//                    info.chang();
+//                } else if (!previous.contains(current)) {
+//                    info.delete();
+//                }
+//            }
+//        }
         return new Info();
     }
 
