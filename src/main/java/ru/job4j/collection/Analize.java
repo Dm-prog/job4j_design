@@ -11,40 +11,31 @@ public class Analize {
     public Info diff(List<User> previous, List<User> current) {
         Map<Integer, User> map = new HashMap<>();
         for (User user : current) {
-            map.put(user.id, user);
+            map.put(user.getId(), user);
         }
-        for (Map.Entry<Integer, User> entry : map.entrySet()) {
-            for (User user : previous) {
-                if (!entry.getValue().equals(user)) {
-                    info.add();
-                } else if (!entry.getValue().getName().equals(user.getName())) {
-                    info.chang();
-                } else if (!entry.getKey().equals(user.id)) {
-                    info.delete();
-                }
+        for (User user : previous) {
+            if (!map.containsValue(user)) {
+                info.add();
+            } else if (!map.containsValue(user.getName())) {
+                info.chang();
+            } else if (!map.containsKey(user.getId())) {
+                info.delete();
             }
         }
-//        for (int i = 0; i < previous.size(); i++) {
-//            for (int j = 0; j < previous.size(); j++) {
-//                if (!previous.get(i).equals(current.get(j))) {
-//                    info.add();
-//                } else if (!previous.get(i).getName().equals(current.get(j).getName())) {
-//                    info.chang();
-//                } else if (!previous.contains(current)) {
-//                    info.delete();
-//                }
-//            }
-//        }
         return new Info();
     }
 
     public static class User {
-        int id;
-        String name;
+        private final int id;
+        private final String name;
 
         public User(int id, String name) {
             this.id = id;
             this.name = name;
+        }
+
+        public int getId() {
+            return id;
         }
 
         public String getName() {
