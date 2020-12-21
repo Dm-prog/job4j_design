@@ -7,21 +7,29 @@ public class Analize {
     List<User> previous = new ArrayList<>();
     List<User> current = new ArrayList<>();
 
-
     public Info diff(List<User> previous, List<User> current) {
         Map<Integer, User> map = new HashMap<>();
         for (User user : current) {
             map.put(user.getId(), user);
         }
         for (User user : previous) {
-            if (!map.containsValue(user)) {
+//            if (!map.containsValue(user)) {
+//                info.add();
+//            } else if (!map.containsValue(user.getName())) {
+//                info.chang();
+//            } else if (!map.containsKey(user.getId())) {
+//                info.delete();
+//            }
+            User cur = map.get(user.getId());
+            if (!user.equals(cur)) {
                 info.add();
-            } else if (!map.containsValue(user.getName())) {
+            } else if (user.getName().equals(cur.getName())) {
                 info.chang();
-            } else if (!map.containsKey(user.getId())) {
+            } else if (user.getId() == cur.getId()) {
                 info.delete();
             }
         }
+
         return new Info();
     }
 
