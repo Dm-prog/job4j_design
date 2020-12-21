@@ -3,7 +3,7 @@ package ru.job4j.collection;
 import java.util.*;
 
 public class SimpleHashMap<K, V> implements Iterable<K> {
-    private final Node<K, V>[] storage = new Node[16];
+    private Node<K, V>[] storage = new Node[16];
     private int count = 0;
     private int modCount;
     private static final float LOAD_FACTOR = 0.75f;
@@ -18,11 +18,14 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
         return sb.reverse().toString();
     }
 
-    public int hashFunction(K key) {
+    private int hashFunction(K key) {
         return key.hashCode() % storage.length;
     }
 
     public boolean insert(K key, V value) {
+        if (count >= ((int) LOAD_FACTOR * storage.length)) {
+            grow();
+        }
         int hash = hashFunction(key); // получаем позицию в таблице
         boolean result = false; // пока мы не вставили результат false
         if (storage[hash] == null) { // проверяем занято ли место
@@ -43,10 +46,28 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
         return storage[index].getValue();
     }
 
+    public boolean delete(K key) {
+        int index = hashFunction(key);
+        if (storage[index] == null || !storage[index].getKey().equals(key)) {
+            return false;
+        }
+        storage[index] = null;
+        count--;
+        modCount++;
+        return true;
+    }
+
+    public Node<K, V>[] grow() {
+        Node<K, V>[] newTable = new Node[storage.length * 2];
+        storage = newTable;
+        return storage;
+    }
+
     @Override
     public Iterator<K> iterator() {
         return new Iterator<>() {
             private int point = 0;
+
             @Override
             public boolean hasNext() {
                 for (int i = point; i < storage.length; i++) {
