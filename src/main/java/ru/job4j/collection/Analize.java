@@ -30,7 +30,7 @@ public class Analize {
             }
         }
 
-        return new Info();
+        return new Info(info.added, info.chang(), info.delete());
     }
 
     public static class User {
