@@ -25,7 +25,7 @@ public class Analize {
                 info.add();
             } else if (user.getName().equals(cur.getName())) {
                 info.chang();
-            } else if (user.getId() == cur.getId()) {
+            } else if (user.getId() != cur.getId()) {
                 info.delete();
             }
         }

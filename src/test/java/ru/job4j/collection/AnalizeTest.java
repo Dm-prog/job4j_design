@@ -24,17 +24,17 @@ public class AnalizeTest {
         List<Analize.User> prev = Arrays.asList(previos);
         List<Analize.User> cur = Arrays.asList(current);
         Analize.Info diff = analize.diff(prev, cur);
-        //assertThat(diff, is());
+        assertThat(diff, is(new Analize.Info(1, 0, 0)));
     }
 
     @Test
     public void whenChang() {
         Analize.User previos = new Analize.User(1, "Andrey");
-        Analize.User current = new Analize.User(2, "Ivan");
+        Analize.User current = new Analize.User(1, "Ivan");
         List<Analize.User> prev = Arrays.asList(previos);
         List<Analize.User> cur = Arrays.asList(current);
         Analize.Info diff = analize.diff(prev, cur);
-        //assertThat(diff, is());
+        assertThat(diff, is(new Analize.Info(0, 1, 0)));
     }
 
     @Test
@@ -44,6 +44,6 @@ public class AnalizeTest {
         List<Analize.User> prev = Arrays.asList(previos);
         List<Analize.User> cur = Arrays.asList(current);
         Analize.Info diff = analize.diff(prev, cur);
-        //assertThat(diff, is());
+        assertThat(diff, is(new Analize.Info(0, 0, 1)));
     }
 }
