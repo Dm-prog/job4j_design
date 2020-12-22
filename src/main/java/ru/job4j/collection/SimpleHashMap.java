@@ -58,7 +58,14 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
     }
 
     public Node<K, V>[] grow() {
-        Node<K, V>[] newTable = new Node[storage.length * 2];
+        Node<K, V>[] newTable = new Node[storage.length];
+        Iterator<K> iterator = iterator();
+        while (iterator.hasNext()) {
+            K next = iterator.next();
+            /**
+             *
+             */
+        }
         storage = newTable;
         return storage;
     }
