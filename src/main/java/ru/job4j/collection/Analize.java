@@ -8,29 +8,21 @@ public class Analize {
     List<User> current = new ArrayList<>();
 
     public Info diff(List<User> previous, List<User> current) {
+        Info rsl = new Info();
         Map<Integer, User> map = new HashMap<>();
         for (User user : current) {
             map.put(user.getId(), user);
         }
         for (User user : previous) {
-//            if (!map.containsValue(user)) {
-//                info.add();
-//            } else if (!map.containsValue(user.getName())) {
-//                info.chang();
-//            } else if (!map.containsKey(user.getId())) {
-//                info.delete();
-//            }
             User cur = map.get(user.getId());
-            if (!user.equals(cur)) {
+            if (cur == null) {
                 info.add();
-            } else if (user.getName().equals(cur.getName())) {
+            } else if (!user.getName().equals(cur.getName())) {
                 info.chang();
-            } else if (user.getId() != cur.getId()) {
-                info.delete();
             }
         }
-
-        return new Info(info.added, info.chang(), info.delete());
+        int deleted = current.size() + info.deleted - previous.size();
+        return new Info(info.added, info.changed, deleted);
     }
 
     public static class User {
@@ -81,6 +73,18 @@ public class Analize {
             this.added = added;
             this.changed = changed;
             this.deleted = deleted;
+        }
+
+        public int getAdded() {
+            return added;
+        }
+
+        public int getChanged() {
+            return changed;
+        }
+
+        public int getDeleted() {
+            return deleted;
         }
 
         public void setAdded(int added) {
