@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class EvenNumberFile {
     public static void main(String[] args) {
-        int[] array = null;
+        int[] array = new int[0];
         try (BufferedReader in = new BufferedReader(new FileReader("even.txt"))) {
             array = in.lines().mapToInt(Integer::parseInt).toArray();
         } catch (IOException | NumberFormatException e) {
