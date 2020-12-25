@@ -39,12 +39,12 @@ public class AnalizeTest {
 
     @Test
     public void whenDelete() {
-        Analize.User previos = new Analize.User(1, "Andrey");
-        Analize.User current1 = new Analize.User(2, "Ivan");
-        Analize.User current2 = new Analize.User(2, "Ivan");
-        List<Analize.User> prev = Arrays.asList(previos);
-        List<Analize.User> cur = Arrays.asList(current1, current2);
+        Analize.User previos1 = new Analize.User(1, "Andrey");
+        Analize.User previos2 = new Analize.User(1, "Andrey");
+        Analize.User current = new Analize.User(2, "Ivan");
+        List<Analize.User> prev = Arrays.asList(previos1, previos2);
+        List<Analize.User> cur = Arrays.asList(current);
         Analize.Info diff = analize.diff(prev, cur);
-        assertThat(diff.getDeleted(), is(2 + 0 - 1)); //current.size() + info.deleted - previous.size()
+        assertThat(diff.getDeleted(), is(2 + 2 - 1)); //previous.size() + info.added - current.size();
     }
 }
