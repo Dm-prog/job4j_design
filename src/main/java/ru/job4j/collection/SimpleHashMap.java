@@ -59,10 +59,11 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
 
     public Node<K, V>[] grow() {
         Node<K, V>[] newTable = new Node[storage.length * 2];
-        Iterator<K> iterator = iterator();
-        while (iterator.hasNext()) {
-            K next = iterator.next();
-            //newTable = insert(next.)
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] != null) {
+                int newIndex = storage[i].getKey().hashCode() % (storage.length * 2);
+                newTable[i] = storage[newIndex];
+            }
         }
         storage = newTable;
         return storage;
