@@ -6,19 +6,18 @@ import java.io.IOException;
 
 public class EvenNumberFile {
     public static void main(String[] args) {
-        int[] array = new int[0];
         try (BufferedReader in = new BufferedReader(new FileReader("even.txt"))) {
-            array = in.lines().mapToInt(Integer::parseInt).toArray();
-        } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
-        } if (array != null) {
-            for (int j : array) {
-                if (j % 2 == 0) {
-                    System.out.println(j + " - четное");
+            String str;
+            while ((str = in.readLine()) != null) {
+                if (Integer.parseInt(str) % 2 == 0) {
+                    System.out.println(str + " - четное");
                 } else {
-                    System.out.println(j + " - нечетное");
+                    System.out.println(str + " - нечетное");
                 }
             }
+
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
         }
     }
 }
