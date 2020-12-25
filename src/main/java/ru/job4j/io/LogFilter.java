@@ -29,7 +29,7 @@ public class LogFilter {
                         new FileOutputStream(file)
                 ))) {
             for (String str : log) {
-                out.write(str + "\n");
+                out.println(str);
             }
 
         } catch (FileNotFoundException e) {
