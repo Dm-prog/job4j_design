@@ -28,10 +28,13 @@ public class Config {
     }
 
     public String value(String key) {
-        for (Map.Entry<String, String> entry : values.entrySet()) {
-            if (entry.getKey().equals(key)) {
-                return entry.getValue();
-            }
+//        for (Map.Entry<String, String> entry : values.entrySet()) {
+//            if (entry.getKey().equals(key)) {
+//                return entry.getValue();
+//            }
+//        }
+        if (values.get(key).equals(key)) {
+            return key;
         }
         return null;
     }
