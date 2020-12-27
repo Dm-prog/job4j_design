@@ -34,7 +34,7 @@ public class Config {
 //            }
 //        }
         if (values.get(key).equals(key)) {
-            return key;
+            return values.get(key);
         }
         return null;
     }
