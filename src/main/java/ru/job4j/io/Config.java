@@ -19,8 +19,8 @@ public class Config {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             String line;
             while ((line = read.readLine()) != null) {
-               String[] words = line.split("=");
-               values.put(words[0], words[1]);
+                String[] words = line.split("=");
+                values.put(words[0], words[1]);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,15 +28,7 @@ public class Config {
     }
 
     public String value(String key) {
-//        for (Map.Entry<String, String> entry : values.entrySet()) {
-//            if (entry.getKey().equals(key)) {
-//                return entry.getValue();
-//            }
-//        }
-        if (values.get(key).equals(key)) {
-            return values.get(key);
-        }
-        return null;
+        return values.get(key);
     }
 
     @Override
