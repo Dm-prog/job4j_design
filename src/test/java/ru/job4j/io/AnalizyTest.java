@@ -2,6 +2,7 @@ package ru.job4j.io;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,9 +20,10 @@ public class AnalizyTest {
     }
 
     @Test
-    public void unavailable() {
-        File fileLog = new File("server.log");
-        File fileCsv = new File("unavailable.csv");
+    public void unavailable() throws IOException {
+        TemporaryFolder folder = new TemporaryFolder();
+        File fileLog = folder.newFile("server.log");
+        File fileCsv = folder.newFile("unavailable.csv");
         List<String> list = new ArrayList<>();
         try(PrintWriter pw = new PrintWriter(new FileOutputStream(fileLog))) {
             pw.println("200 10:56:01");
