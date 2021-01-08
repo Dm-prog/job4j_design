@@ -6,33 +6,29 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
 public class SearchDuplicates extends SimpleFileVisitor<Path> {
-    private Predicate<Path> predicate;
-    private List<Path> paths;
-    private Set<Path> set;
+    private final List<FileProperty> dublicates;
+    private final Set<FileProperty> set;
 
-    public SearchDuplicates(Predicate<Path> predicate, List<Path> paths, Set<Path> set) {
-        this.predicate = predicate;
-        this.paths = paths;
+
+    public SearchDuplicates(List<FileProperty> dublicates, Set<FileProperty> set) {
+        this.dublicates = dublicates;
         this.set = set;
-    }
-
-    public List<Path> getPaths() {
-        return paths;
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        if (predicate.test(file)) {
-            paths.add(file);
-        }
-        for (Path path : paths) {
-            if (path.toFile().length() == file.toFile().length()) {
-                set.add(file);
+        for (FileProperty property : dublicates) {
+            FileProperty fileProperty = new FileProperty();
+            if (property.equals(fileProperty)) {
+                dublicates.add(fileProperty);
+            } else {
+                set.add(fileProperty);
             }
         }
         return FileVisitResult.CONTINUE;
