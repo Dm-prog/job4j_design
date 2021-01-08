@@ -12,7 +12,7 @@ public class Search {
             throw new IllegalArgumentException("Root folder is null. Usage java -jar dir.jar ROOT_FOLDER.");
         }
         Path start = Paths.get(args[0]);
-        search(start, args[0]).forEach(System.out::println);
+        search(start, args[1]).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, String ext) {
