@@ -15,7 +15,6 @@ public class EvenNumberFile {
                     System.out.println(str + " - нечетное");
                 }
             }
-
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
