@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class EvenNumberFile {
     public static void main(String[] args) {
-        try (BufferedReader in = new BufferedReader(new FileReader("even.txt")))
-        {
+        try (BufferedReader in = new BufferedReader(
+                new FileReader("even.txt"))) {
             String str;
             while ((str = in.readLine()) != null) {
                 if (Integer.parseInt(str) % 2 == 0) {
