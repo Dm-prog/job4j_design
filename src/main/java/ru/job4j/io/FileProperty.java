@@ -6,6 +6,11 @@ public class FileProperty {
     private String name;
     private long size;
 
+    public FileProperty(String name, long size) {
+        this.name = name;
+        this.size = size;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

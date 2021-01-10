@@ -19,12 +19,12 @@ public class SearchDuplicates extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-//        FileProperty fileProperty = file.;
-//        if (!set.contains(fileProperty)) {
-//            set.add(fileProperty);
-//        } else {
-//            dublicates.add(fileProperty);
-//        }
+        FileProperty fileProperty = new FileProperty(file.toFile().getName(), file.toFile().length());
+        if (!set.contains(fileProperty)) {
+            set.add(fileProperty);
+        } else {
+            dublicates.add(fileProperty);
+        }
         return FileVisitResult.CONTINUE;
     }
 }
