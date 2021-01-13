@@ -1,6 +1,9 @@
 package ru.job4j.io;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -14,7 +17,10 @@ public class EchoServer {
                              new InputStreamReader(socket.getInputStream()))) {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
-                        System.out.println(str);
+                        if (str.contains("msg=Bye")) {
+                            System.out.println(str);
+                            return;
+                        }
                     }
                     out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
                 }
