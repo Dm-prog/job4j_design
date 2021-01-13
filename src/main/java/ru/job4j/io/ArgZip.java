@@ -9,6 +9,7 @@ public class ArgZip {
     }
 
     public boolean valid() {
+//        if (args[0])
         return false;
     }
 

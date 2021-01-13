@@ -8,7 +8,15 @@ import java.util.zip.ZipOutputStream;
 public class Zip {
 
     public void packFiles(List<File> sources, File target) {
-
+        ArgZip argZip = new ArgZip(new String[sources.size()]);
+        //for (File file : sources) {
+            try (ZipOutputStream zout = new ZipOutputStream(new FileOutputStream(target));
+                 BufferedInputStream br = new BufferedInputStream(new FileInputStream(target))) {
+                zout.write(br.readAllBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+       // }
     }
 
     public void packSingleFile(File source, File target) {
