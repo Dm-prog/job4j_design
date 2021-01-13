@@ -6,55 +6,16 @@ import java.util.*;
 
 public class ConsoleChat {
     private final String path;
-    private String botAnswers;
+    private String user;
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
-    List<String> listWords = new ArrayList<>();
+    private List<String> listWords = new ArrayList<>();
+    private List<String> botAnswerList = new ArrayList<>();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
-        this.botAnswers = botAnswers;
-    }
-
-    public void getBotAnswers() {
-        File file = new File("botAnswer.txt");
-        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
-            String str = reader.readLine();
-            while (str != null) {
-                listWords.add(str);
-                str = reader.readLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String s = listWords.get((int) (Math.random() * listWords.size()));
-        System.out.println(s);
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("path.txt"))) {
-            writer.write(s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void stop() {
-        try (Scanner scanner = new Scanner(System.in);
-             BufferedWriter writer = new BufferedWriter(new FileWriter("path.txt"))) {
-            boolean flag = true;
-            String stop;
-            while (flag) {
-                stop = scanner.nextLine();
-                if (stop.equals(CONTINUE)) {
-                    writer.write(CONTINUE);
-                    run();
-                    flag = false;
-                } else if (stop.equals(OUT)){
-                    return;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.user = botAnswers;
     }
 
     public void run() {
@@ -62,14 +23,38 @@ public class ConsoleChat {
         try (Scanner scanner = new Scanner(System.in);
              BufferedWriter writer = new BufferedWriter(new FileWriter("path.txt"))) {
             while (flag) {
-                botAnswers = scanner.nextLine();
-                if (botAnswers.equals(STOP)) {
+                user = scanner.nextLine();
+                if (user.equals(STOP)) {
                     writer.write(STOP + System.lineSeparator());
-                    stop();
+                    boolean isStop = true;
+                    String stop;
+                    while (isStop) {
+                        stop = scanner.nextLine();
+                        if (stop.equals(CONTINUE)) {
+                            writer.write(CONTINUE + System.lineSeparator());
+                            isStop = false;
+                        } else if (stop.equals(OUT)) {
+                            return;
+                        }
+                    }
                 }
-                if (!botAnswers.equals(OUT)) {
-                    writer.write(botAnswers + System.lineSeparator());
-                    getBotAnswers();
+                if (!user.equals(OUT)) {
+                    if (!user.equals(STOP)) {
+                        writer.write(user + System.lineSeparator());
+                    }
+                    File file = new File("botAnswer.txt");
+                    try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
+                        String str = reader.readLine();
+                        while (str != null) {
+                            listWords.add(str);
+                            str = reader.readLine();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    String s = listWords.get((int) (Math.random() * listWords.size()));
+                    System.out.println(s);
+                    writer.write(s + System.lineSeparator());
                 } else {
                     writer.write(OUT);
                     flag = false;
@@ -80,6 +65,7 @@ public class ConsoleChat {
         } catch (NoSuchElementException noSuchElementException) {
             noSuchElementException.getMessage();
         }
+
     }
 
     public static void main(String[] args) {
