@@ -11,27 +11,51 @@ public class ConsoleChat {
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
     private List<String> listWords = new ArrayList<>();
-    private List<String> botAnswerList = new ArrayList<>();
+    private List<String> answerList = new ArrayList<>();
 
     public ConsoleChat(String path, String botAnswers) {
         this.path = path;
         this.user = botAnswers;
     }
 
+    public void getWriter(String command) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("path.txt"))) {
+            answerList.add(command);
+            writer.write(String.valueOf(answerList));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void answerReader() {
+        File file = new File("botAnswer.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
+            String str = reader.readLine();
+            while (str != null) {
+                listWords.add(str);
+                str = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String s = listWords.get((int) (Math.random() * listWords.size()));
+        System.out.println(s);
+        getWriter(s);
+    }
+
     public void run() {
         boolean flag = true;
-        try (Scanner scanner = new Scanner(System.in);
-             BufferedWriter writer = new BufferedWriter(new FileWriter("path.txt"))) {
+        try (Scanner scanner = new Scanner(System.in)) {
             while (flag) {
                 user = scanner.nextLine();
                 if (user.equals(STOP)) {
-                    writer.write(STOP + System.lineSeparator());
+                    getWriter(STOP);
                     boolean isStop = true;
                     String stop;
                     while (isStop) {
                         stop = scanner.nextLine();
                         if (stop.equals(CONTINUE)) {
-                            writer.write(CONTINUE + System.lineSeparator());
+                            getWriter(CONTINUE);
                             isStop = false;
                         } else if (stop.equals(OUT)) {
                             return;
@@ -40,32 +64,17 @@ public class ConsoleChat {
                 }
                 if (!user.equals(OUT)) {
                     if (!user.equals(STOP)) {
-                        writer.write(user + System.lineSeparator());
+                        getWriter(user);
                     }
-                    File file = new File("botAnswer.txt");
-                    try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
-                        String str = reader.readLine();
-                        while (str != null) {
-                            listWords.add(str);
-                            str = reader.readLine();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    String s = listWords.get((int) (Math.random() * listWords.size()));
-                    System.out.println(s);
-                    writer.write(s + System.lineSeparator());
+                    answerReader();
                 } else {
-                    writer.write(OUT);
+                    getWriter(OUT);
                     flag = false;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (NoSuchElementException noSuchElementException) {
             noSuchElementException.getMessage();
         }
-
     }
 
     public static void main(String[] args) {
