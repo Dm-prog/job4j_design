@@ -2,8 +2,12 @@ package ru.job4j.serialization.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Bicycle {
     private final boolean sport;
@@ -32,6 +36,31 @@ public class Bicycle {
                         + "}";
         final Bicycle bicycleMod = gson.fromJson(bicyclJson, Bicycle.class);
         System.out.println(bicycleMod);
+
+        //---------------------------------------------------------------------//
+
+        /* JSONObject из json-строки строки */
+        JSONObject jsonPassport = new JSONObject("{\"passportDetails\":\"11_1111\"}");
+
+        /* JSONArray из ArrayList */
+        List<String> list = new ArrayList<>();
+        list.add("frontWheel");
+        list.add("rearWheel");
+        JSONArray jsonWheels = new JSONArray(list);
+
+        /* JSONObject напрямую методом put */
+        final Bicycle bicycle1 = new Bicycle(true, 80, new Passport("11_1111"), "frontWheel", "rearWheel");
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("sport", bicycle.isSport());
+        jsonObject.put("speed", bicycle.getSpeed());
+        jsonObject.put("passport", jsonPassport);
+        jsonObject.put("wheels", jsonWheels);
+
+        /* Выведем результат в консоль */
+        System.out.println(jsonObject.toString());
+
+        /* Преобразуем объект person в json-строку */
+        System.out.println(new JSONObject(bicycle1).toString());
     }
 
     public Bicycle(boolean sport, int speed, Passport passport, String... wheels) {
@@ -39,6 +68,14 @@ public class Bicycle {
         this.speed = speed;
         this.passport = passport;
         this.wheels = wheels;
+    }
+
+    public boolean isSport() {
+        return sport;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
     @Override
