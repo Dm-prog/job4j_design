@@ -19,12 +19,18 @@ public class EchoServer {
                     String str;
                     while (!(str = in.readLine()).isEmpty()) {
                         System.out.println(str);
-                        if (str.contains("msg=Bye")) {
-                            System.out.println(str);
+                        if (str.contains("msg=Exit")) {
                             flag = false;
                         }
+//                        else if (str.contains("msg=Hello")) {
+//                            out.write("Hello".getBytes());
+//                        } else if (str.contains("msg=Any")) {
+//                            out.write("What".getBytes());
+//                        }
                     }
                     out.write("HTTP/1.1 200 OK\r\n\\".getBytes());
+                    out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
+                    out.write("Hello, dear friend.".getBytes());
                 }
             }
         }
