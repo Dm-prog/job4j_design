@@ -10,7 +10,7 @@ import java.util.zip.ZipOutputStream;
 public class Zip {
 
     public static List<Path> search(ArgZip args) {
-        SearchFiles searcher = new SearchFiles(p -> p.toFile().getName().contains(args.directory()));
+        SearchFiles searcher = new SearchFiles(p -> !p.toFile().getName().contains(args.exclude()));
         try {
             Files.walkFileTree(searcher.getPaths().remove(0), searcher);
         } catch (IOException e) {
