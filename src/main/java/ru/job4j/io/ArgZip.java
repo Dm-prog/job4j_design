@@ -20,7 +20,7 @@ public class ArgZip {
             }
             values.put(line[0].replaceFirst("-", ""), line[1]);
         }
-        return false;
+        return true;
     }
 
     public String directory() {

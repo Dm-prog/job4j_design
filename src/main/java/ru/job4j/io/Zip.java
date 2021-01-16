@@ -1,11 +1,23 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 public class Zip {
+
+    public static List<Path> search(ArgZip args) {
+        SearchFiles searcher = new SearchFiles(p -> p.toFile().getName().contains(args.directory()));
+        try {
+            Files.walkFileTree(searcher.getPaths().remove(0), searcher);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return searcher.getPaths();
+    }
 
     public void packFiles(List<File> sources, File target) {
         try (ZipOutputStream zip = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(target)))) {
