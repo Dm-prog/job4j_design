@@ -1,1 +1,1 @@
-insert into animals(name, area) values ('Гризли', 'США');
+update animals set name = 'Гриззли';
