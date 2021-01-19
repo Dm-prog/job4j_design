@@ -1,1 +1,1 @@
-update animals set name = 'Гриззли';
+delete from animals;
