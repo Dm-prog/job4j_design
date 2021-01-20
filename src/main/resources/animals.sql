@@ -1,7 +1,8 @@
 1)
 create table user (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    role_id int references role(id)
 );
 
 create table role (
@@ -30,59 +31,59 @@ create table rules_role(
 3)
 create table item (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    user_id int references user(id)
 );
 
 create table user (
     id serial primary key,
-    name varchar(200),
-    item_id int references item(id)
+    name varchar(200)
 );
 
 4)
 create table item (
     id serial primary key,
     name varchar(200)
-    comments_id int references comments(id)
 );
 
 create table comments (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    item_id int references item(id)
 );
 
 5)
 create table item (
     id serial primary key,
     name varchar(200)
-    attachs_id int references attachs(id)
 );
 
 create table attachs (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    item_id int references item(id)
 );
 
 6)
 create table item (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    category_id int references category(id)
 );
 
 create table category (
     id serial primary key,
-    name varchar(200),
-    item_id int references item(id)
+    name varchar(200)
 );
 
 7)
 create table item (
     id serial primary key,
-    name varchar(200)
+    name varchar(200),
+    state_id int references state(id)
 );
 
 create table state (
     id serial primary key,
-    name varchar(200),
-    item_id int references item(id)
+    name varchar(200)
 );
