@@ -1,7 +1,6 @@
 package ru.job4j.io.searcher;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Args {
     private Map<String, String> keys = new HashMap<>();
@@ -16,15 +15,14 @@ public class Args {
         validate();
     }
 
-    private boolean validate() {
-        for (String arg : args) {
-            String[] line = arg.split("=");
-            if (line.length != 2) {
-                throw new IllegalArgumentException();
+    private void validate() {
+        List<String> strings = new ArrayList<>(Arrays.asList(args));
+        strings.remove("-m");
+        for (int i = 0; i < strings.size(); i++) {
+            if (i % 2 == 0) {
+                keys.put(strings.get(i).replace("-", ""), strings.get(i + 1));
             }
-            keys.put(line[0].replaceFirst("-", ""), line[1]);
         }
-        return true;
     }
 
     public String directory() {
