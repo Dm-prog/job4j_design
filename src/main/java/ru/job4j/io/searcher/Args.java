@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Args {
     private Map<String, String> keys = new HashMap<>();
-    private final String[] args;
+    private String[] args;
 
     public static void main(String[] args) {
 
@@ -23,21 +23,25 @@ public class Args {
                 keys.put(strings.get(i).replace("-", ""), strings.get(i + 1));
             }
         }
+        keys.put("m", "");
+//        for (Map.Entry<String, String> entry : keys.entrySet()) {
+//            System.out.println(entry.getKey() + " " + entry.getValue());
+//        }
     }
 
     public String directory() {
-        return "d";
+        return keys.get("d");
     }
 
     public String fileName() {
-        return "n";
+        return keys.get("n");
     }
 
     public String mask() {
-        return "m";
+        return keys.get("m");
     }
 
     public String result() {
-        return "o";
+        return keys.get("o");
     }
 }
