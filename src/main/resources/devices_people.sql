@@ -31,8 +31,10 @@ insert into devices_people(device_id, people_id) values
 -- у Бориса - Galaxy S8 Plus, iPhone 8;
 -- у Евгения - iPhone X, Galaxy S8 Plus, iPhone 8;
 -- у Романа - Galaxy S8 Plus;
-select p.name, avg(d.price) from people p join devices d on p.id = d.id group by p.name;
-select p.name, avg(d.price) from people p join devices d on p.id = d.id
-group by p.name having avg(d.price) > 25.0;
+
+select p.name, avg(d.price) from people p join devices_people dp on p.id = dp.people_id
+join devices d on dp.device_id = d.id group by p.name;
+select p.name, avg(d.price) from people p join devices_people dp on p.id = dp.people_id
+join devices d on dp.device_id = d.id group by p.name having avg(d.price) < 29.0;
 
 
