@@ -1,47 +1,53 @@
 package ru.job4j.io.searcher;
 
+import java.io.File;
 import java.util.*;
 
 public class Args {
-    private Map<String, String> keys = new HashMap<>();
-    private String[] args;
-
-    public static void main(String[] args) {
-
-    }
+    private static final int DIR_KEY = 0;
+    private static final int PATTERN_KEY = 2;
+    private static final int SEARCH_TYPE = 4;
+    private static final int LOG_PATH_KEY = 5;
+    private final String[] args;
 
     public Args(String[] args) {
         this.args = args;
-        validate();
     }
 
-    private void validate() {
-        List<String> strings = new ArrayList<>(Arrays.asList(args));
-        strings.remove("-m");
-        for (int i = 0; i < strings.size(); i++) {
-            if (i % 2 == 0) {
-                keys.put(strings.get(i).replace("-", ""), strings.get(i + 1));
-            }
+    void validate() {
+        if (args.length != 7) {
+            throw new IllegalArgumentException("Invalid args count! Try again, e.g. java -jar find.jar -d c:/ -n *.txt -m -o log.txt");
         }
-        keys.put("m", "");
-//        for (Map.Entry<String, String> entry : keys.entrySet()) {
-//            System.out.println(entry.getKey() + " " + entry.getValue());
-//        }
+        if (!args[DIR_KEY].startsWith("-")
+                || !args[PATTERN_KEY].startsWith("-")
+                || !args[SEARCH_TYPE].startsWith("-")
+                || !args[LOG_PATH_KEY].startsWith("-")) {
+            throw new IllegalArgumentException("Args must be started with -");
+        }
+        if (!args[DIR_KEY].equalsIgnoreCase("-d")
+                || !args[PATTERN_KEY].equalsIgnoreCase("-n")
+                || !args[LOG_PATH_KEY].equalsIgnoreCase("-o")) {
+            throw new IllegalArgumentException("Wrong arg name!");
+        }
+        File dir = new File(args[DIR_KEY + 1]);
+        if (!dir.exists()) {
+            throw new IllegalArgumentException("Search directory is not exist!");
+        }
     }
 
     public String directory() {
-        return keys.get("d");
+        return args[DIR_KEY + 1];
     }
 
-    public String fileName() {
-        return keys.get("n");
+    public String pattern() {
+        return args[PATTERN_KEY + 1];
     }
 
-    public String mask() {
-        return keys.get("m");
+    public String searchType() {
+        return args[SEARCH_TYPE];
     }
 
-    public String result() {
-        return keys.get("o");
+    public String logPath() {
+        return args[LOG_PATH_KEY + 1];
     }
 }
