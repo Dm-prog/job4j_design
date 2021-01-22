@@ -32,8 +32,11 @@ insert into devices_people(device_id, people_id) values
 -- у Евгения - iPhone X, Galaxy S8 Plus, iPhone 8;
 -- у Романа - Galaxy S8 Plus;
 
+--Используя группировку вывести для каждого человека среднюю цену его устройств
 select p.name, avg(d.price) from people p join devices_people dp on p.id = dp.people_id
 join devices d on dp.device_id = d.id group by p.name;
+
+--Дополнить запрос условием, что цена устройства должны быть больше 29.0
 select p.name, avg(d.price) from people p join devices_people dp on p.id = dp.people_id
 join devices d on dp.device_id = d.id group by p.name having avg(d.price) < 29.0;
 
