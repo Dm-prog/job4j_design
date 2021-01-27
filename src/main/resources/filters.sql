@@ -27,7 +27,8 @@ select p.* from product p join type t on p.type_id = t.id where t.name = 'СЫР
 select p.* from product p join type t on p.type_id = t.id where p.name like '%мороженное%';
 
 -- 3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
-select * from product where expired_date <= CURRENT_DATE + INTERVAL '1 month';
+select * from product where expired_date >= date_trunc('month', CURRENT_DATE) + INTERVAL '1 month'
+    and expired_date < date_trunc('month', CURRENT_DATE) + INTERVAL '2 month';
 
 -- 4. Написать запрос, который выводит самый дорогой продукт.
 select name, price from product where price = (select max(price) from product);
