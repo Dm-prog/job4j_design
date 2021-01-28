@@ -23,24 +23,53 @@ public class TableEditor implements AutoCloseable {
     }
 
     public void createTable(String tableName) {
-        String createTable = "create table " + tableName + "()";
+            try (Statement statement = connection.createStatement()) {
+                String sql = String.format(
+                        "create table if not exists " + tableName + "(%s, %s);",
+                        "id serial primary key",
+                        "name varchar(255)"
+                );
+                statement.execute(sql);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
     }
 
     public void dropTable(String tableName) {
-        String dropTable = "drop table " + tableName;
+        try (Statement statement = connection.createStatement()) {
+            String sql = "drop table " + tableName;
+            statement.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void addColumn(String tableName, String columnName, String type) {
-        String addColumn = "alter table " + tableName + " add column " + columnName + " " + type;
+        try (Statement statement = connection.createStatement()) {
+            String sql = "alter table " + tableName + " add column " + columnName + " " + type;
+            statement.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void dropColumn(String tableName, String columnName) {
-        String dropColumn = "alter table " + tableName + " drop column " + columnName;
+        try (Statement statement = connection.createStatement()) {
+            String sql = "alter table " + tableName + " drop column " + columnName;
+            statement.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) {
-        String renameColumn = "alter table " + tableName + " rename column " + columnName
-                + " to " + newColumnName;
+        try (Statement statement = connection.createStatement()) {
+            String sql = "alter table " + tableName + " rename column " + columnName
+                    + " to " + newColumnName;
+            statement.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public String getScheme(String tableName) throws SQLException {
