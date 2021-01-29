@@ -1,6 +1,9 @@
 package ru.job4j.jdbc;
 
+import ru.job4j.io.Config;
+
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -9,24 +12,21 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionDemo {
-    public static void main(String[] args) {
-        FileInputStream fis;
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Properties property = new Properties();
-
-        try {
-            fis = new FileInputStream("src/main/resources/app.properties");
+        try (FileInputStream fis = new FileInputStream("src/main/resources/app.properties")) {
             property.load(fis);
-
-            String host = property.getProperty("db.host");
+            Class.forName("org.postgresql.Driver");
+            String url = property.getProperty("db.url");
             String login = property.getProperty("db.login");
             String password = property.getProperty("db.password");
-
-            System.out.println("URL: " + host + System.lineSeparator()
-                    + "LOGIN: " + login + System.lineSeparator()
-                    + "PASSWORD: " + password);
-
+            try (Connection connection = DriverManager.getConnection(url, login, password)) {
+                DatabaseMetaData metaData = connection.getMetaData();
+                System.out.println(metaData.getUserName());
+                System.out.println(metaData.getURL());
+            }
         } catch (IOException e) {
-            System.err.println("ОШИБКА: Файл свойств отсуствует!");
+            e.printStackTrace();
         }
     }
 }
