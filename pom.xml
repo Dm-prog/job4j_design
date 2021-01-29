@@ -66,6 +66,7 @@
           <execution>
             <id>validate</id>
             <phase>validate</phase>
+
             <configuration>
               <configLocation>checkstyle.xml</configLocation>
               <encoding>UTF-8</encoding>
@@ -78,6 +79,7 @@
             </goals>
           </execution>
         </executions>
+
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -99,7 +101,33 @@
         </executions>
       </plugin>
     </plugins>
+
   </build>
+
+
+
+  <profiles>
+    <profile>
+      <id>test</id>
+      <properties>
+        <db.url>jdbc:postgresql://127.0.0.1:5432/tracker</db.url>
+        <db.username>postgres</db.username>
+        <db.password>password</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
+      </properties>
+    </profile>
+    <profile>
+      <id>production</id>
+      <properties>
+        <db.url>jdbc:postgresql://127.0.0.1:5432/tracker</db.url>
+        <db.username>postgres</db.username>
+        <db.password>password</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
+      </properties>
+    </profile>
+  </profiles>
+
+
 
 </project>
 
