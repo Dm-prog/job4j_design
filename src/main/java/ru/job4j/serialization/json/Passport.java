@@ -9,8 +9,10 @@ public class Passport {
 
     @Override
     public String toString() {
-        return "Passport{" +
-                "passportDetails='" + passportDetails + '\'' +
-                '}';
+        return "Passport{"
+                + "passportDetails='"
+                + passportDetails
+                + '\''
+                + '}';
     }
 }

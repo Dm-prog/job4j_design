@@ -80,11 +80,15 @@ public class Bicycle {
 
     @Override
     public String toString() {
-        return "Bicycle{" +
-                "sport=" + sport +
-                ", speed=" + speed +
-                ", passport=" + passport +
-                ", wheels=" + Arrays.toString(wheels) +
-                '}';
+        return "Bicycle{"
+                + "sport="
+                + sport
+                + ", speed="
+                + speed
+                + ", passport="
+                + passport
+                + ", wheels="
+                + Arrays.toString(wheels)
+                + '}';
     }
 }

@@ -15,25 +15,18 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         Scanner scanner = new Scanner(System.in);
-
         while (scanner.hasNext()) {
             String input = scanner.nextLine();
-
             if ("u".equals(input)) {
                 break;
             }
-
             if ("q".equals(input)) {
                 return;
             }
-
             addUserEmails(input);
         }
-
         getUsersEmails();
-
         printResults();
     }
 
@@ -41,7 +34,7 @@ public class Main {
 
         final String key = userStr.substring(0, userStr.indexOf("->")).trim();
         final String listStr = userStr.substring(userStr.indexOf("->") + 2).trim();
-        final List<String> listEmail = Arrays.asList(listStr.trim().split("\\s*,\\s*"));
+        final String[] listEmail = listStr.trim().split("\\s*,\\s*");
 
         String foundUser = null;
 
@@ -60,7 +53,6 @@ public class Main {
                 emailMap.put(email, key);
             }
         }
-
     }
 
     public static void getUsersEmails() {
@@ -79,8 +71,7 @@ public class Main {
 
     public static void printResults() {
         for (Map.Entry<String, List<String>> listEntry : resultMap.entrySet()) {
-            System.out.println(listEntry.getKey() + " -> " + listEntry.getValue().stream()
-                    .collect(Collectors.joining(",")));
+            System.out.println(listEntry.getKey() + " -> " + String.join(",", listEntry.getValue()));
         }
     }
 }
