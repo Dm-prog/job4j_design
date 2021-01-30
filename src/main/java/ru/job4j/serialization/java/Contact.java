@@ -26,7 +26,7 @@ public class Contact implements Serializable {
         return "Contact{"
                 + "zipCode=" + zipCode
                 + ", phone='" + phone
-                + '\''+ '}';
+                + '\'' + '}';
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
