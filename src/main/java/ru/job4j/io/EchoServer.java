@@ -21,8 +21,8 @@ public class EchoServer {
                 try (OutputStream out = socket.getOutputStream();
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
-                    String str;
-                    if (!(str = in.readLine()).isEmpty()) {
+                    String str = in.readLine();
+                    if (!str.isEmpty()) {
                         System.out.println(str);
                         if (str.contains("Hello")) {
                             str = "Hello, Dear friend";
