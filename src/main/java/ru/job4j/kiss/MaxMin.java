@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        Predicate<Integer> predicate = i -> i > 0;
+        Predicate<Integer> predicate = i -> i < 0;
         return find(value, comparator, predicate);
     }
 
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        Predicate<Integer> predicate =  i -> i < 0;
+        Predicate<Integer> predicate =  i -> i > 0;
         return find(value, comparator, predicate);
     }
 
