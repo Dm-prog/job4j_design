@@ -1,5 +1,9 @@
 package ru.job4j.design.srp;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class ReportEngine implements Report {
@@ -13,7 +17,7 @@ public class ReportEngine implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
-        text.append("Name; Hired; Fired; Salary");
+        text.append("Name; Hired; Fired; Salary;");
         for (Employee employee : store.findBy(filter)) {
             text.append(employee.getName()).append(";")
                     .append(employee.getHired()).append(";")
@@ -22,5 +26,17 @@ public class ReportEngine implements Report {
                     .append(System.lineSeparator());
         }
         return text.toString();
+    }
+
+    @Override
+    public List<Employee> sortSalary(List<Employee> employee) {
+        employee.sort(Comparator.comparing(Employee::getSalary).reversed());
+        return employee;
+    }
+
+    @Override
+    public double convertRusToUsa(double salary) {
+        final double currencyExchangeRate = 72.17;
+        return salary / currencyExchangeRate;
     }
 }
