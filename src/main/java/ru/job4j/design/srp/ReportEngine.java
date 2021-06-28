@@ -28,13 +28,11 @@ public class ReportEngine implements Report {
         return text.toString();
     }
 
-    @Override
     public List<Employee> sortSalary(List<Employee> employee) {
         employee.sort(Comparator.comparing(Employee::getSalary).reversed());
         return employee;
     }
 
-    @Override
     public double convertRusToUsa(double salary) {
         final double currencyExchangeRate = 72.17;
         return salary / currencyExchangeRate;
