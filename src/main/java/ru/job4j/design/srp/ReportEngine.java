@@ -1,9 +1,10 @@
 package ru.job4j.design.srp;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.*;
+import javax.swing.text.DateFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Predicate;
 
 public class ReportEngine implements Report {
@@ -36,5 +37,42 @@ public class ReportEngine implements Report {
     public double convertRusToUsa(double salary) {
         final double currencyExchangeRate = 72.17;
         return salary / currencyExchangeRate;
+    }
+
+    public String parse(List<Employee> employees) {
+        StringJoiner html = new StringJoiner(System.lineSeparator());
+
+        html.add("<!DOCTYPE html>");
+        html.add("<html>");
+        html.add("<head>");
+        html.add("<meta charset=\"UTF-8\">");
+        html.add("<title>Employees</title>");
+        html.add("</head>");
+        html.add("<body>");
+
+        html.add("<table>");
+        html.add("<tr>");
+        html.add("<th>Name</th>");
+        html.add("<th>Hired</th>");
+        html.add("<th>Fired</th>");
+        html.add("<th>Salary</th>");
+        html.add("</tr>");
+
+        for (Employee employee : employees) {
+            html.add("<tr>");
+            html.add(String.format("<td>%s</td>", employee.getName()));
+            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
+                    .format(employee.getHired())));
+            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
+                    .format(employee.getHired())));
+            html.add(String.format("<td>%s</td>", employee.getSalary()));
+            html.add("</tr>");
+        }
+
+        html.add("</table>");
+        html.add("</body>");
+        html.add("</html>");
+
+        return html.toString();
     }
 }

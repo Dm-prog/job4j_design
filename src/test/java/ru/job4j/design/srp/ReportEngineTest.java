@@ -1,12 +1,12 @@
 package ru.job4j.design.srp;
 
-import static org.junit.Assert.assertThat;
-import static org.hamcrest.Matchers.is;
-
-import org.junit.Before;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 public class ReportEngineTest {
 
@@ -29,7 +29,46 @@ public class ReportEngineTest {
 
     @Test
     public void whenProgrammingDepartment() {
-        //assertThat();
+        MemStore store = new MemStore();
+        ReportEngine engine = new ReportEngine(store);
+        Calendar now = Calendar.getInstance();
+        Employee employee1 = new Employee("Boris", now, now, 200);
+        Employee employee2 = new Employee("Alexandr", now, now, 200);
+        Employee employee3 = new Employee("Oleg", now, now, 200);
+        List<Employee> employees = Arrays.asList(employee1, employee2, employee3);
+        StringJoiner html = new StringJoiner(System.lineSeparator());
+
+        html.add("<!DOCTYPE html>");
+        html.add("<html>");
+        html.add("<head>");
+        html.add("<meta charset=\"UTF-8\">");
+        html.add("<title>Employees</title>");
+        html.add("</head>");
+        html.add("<body>");
+
+        html.add("<table>");
+        html.add("<tr>");
+        html.add("<th>Name</th>");
+        html.add("<th>Hired</th>");
+        html.add("<th>Fired</th>");
+        html.add("<th>Salary</th>");
+        html.add("</tr>");
+
+        for (Employee employee : employees) {
+            html.add("<tr>");
+            html.add(String.format("<td>%s</td>", employee.getName()));
+            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
+                    .format(employee.getHired())));
+            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
+                    .format(employee.getFired())));
+            html.add(String.format("<td>%s</td>", employee.getSalary()));
+            html.add("</tr>");
+        }
+
+        html.add("</table>");
+        html.add("</body>");
+        html.add("</html>");
+        assertThat(engine.parse(employees), is(html.toString()));
     }
 
     @Test
