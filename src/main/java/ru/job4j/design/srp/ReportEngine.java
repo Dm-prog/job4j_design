@@ -1,7 +1,5 @@
 package ru.job4j.design.srp;
 
-import javax.swing.text.DateFormatter;
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.List;
 import java.util.StringJoiner;
@@ -61,10 +59,8 @@ public class ReportEngine implements Report {
         for (Employee employee : employees) {
             html.add("<tr>");
             html.add(String.format("<td>%s</td>", employee.getName()));
-            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
-                    .format(employee.getHired())));
-            html.add(String.format("<td>%s</td>", new SimpleDateFormat()
-                    .format(employee.getHired())));
+            html.add(String.format("<td>%s</td>", DateFormatter.format(employee.getHired())));
+            html.add(String.format("<td>%s</td>", DateFormatter.format(employee.getFired())));
             html.add(String.format("<td>%s</td>", employee.getSalary()));
             html.add("</tr>");
         }
