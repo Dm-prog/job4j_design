@@ -8,9 +8,13 @@ import java.io.StringWriter;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Person person = new Person(false, 30, new Contact("11-111"), "Worker", "Married");
+        Bicycle bicycle = new Bicycle(
+                false,
+                100,
+                new Passport("11-111"),
+                "frontWheel", "rearWheel");
         // Получаем контекст для доступа к АПИ
-        JAXBContext context = JAXBContext.newInstance(Person.class);
+        JAXBContext context = JAXBContext.newInstance(Bicycle.class);
         // Создаем сериализатор
         Marshaller marshaller = context.createMarshaller();
         // Указываем, что нам нужно форматирование
@@ -18,7 +22,7 @@ public class Main {
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
             // Сериализуем
-            marshaller.marshal(person, writer);
+            marshaller.marshal(bicycle, writer);
             xml = writer.getBuffer().toString();
             System.out.println(xml);
         }
@@ -26,7 +30,7 @@ public class Main {
         Unmarshaller unmarshaller = context.createUnmarshaller();
         try (StringReader reader = new StringReader(xml)) {
             // десериализуем
-            Person result = (Person) unmarshaller.unmarshal(reader);
+            Bicycle result = (Bicycle) unmarshaller.unmarshal(reader);
             System.out.println(result);
         }
 

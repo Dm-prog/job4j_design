@@ -1,20 +1,23 @@
 package ru.job4j.io.serialization.xml;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "bicycle")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Bicycle {
-    private final boolean sport;
-    private final int speed;
-    private final Passport passport;
-    private final String[] wheels;
 
-    public static void main(String[] args) {
-        final Bicycle bicycle = new Bicycle(
-                true,
-                100,
-                new Passport("11_1111"),
-                "frontWheel", "rearWheel");
-    }
+    @XmlAttribute
+    private final boolean sport;
+
+    @XmlAttribute
+    private final int speed;
+
+    private final Passport passport;
+
+    @XmlElementWrapper(name = "wheels")
+    @XmlElement(name = "wheel")
+    private final String[] wheels;
 
     public Bicycle(boolean sport, int speed, Passport passport, String... wheels) {
         this.sport = sport;

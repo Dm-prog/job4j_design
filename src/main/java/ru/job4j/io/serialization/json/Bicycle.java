@@ -23,7 +23,7 @@ public class Bicycle {
         System.out.println(gson.toJson(bicycle));
 
         /* Модифицируем json-строку */
-        final String bicyclJson =
+        final String bicycleJson =
                 "{"
                         + "\"sport\":true,"
                         + "\"speed\":100,"
@@ -34,7 +34,7 @@ public class Bicycle {
                         + "\"wheels\":"
                         + "[\"frontWheel\",\"rearWheel\"]"
                         + "}";
-        final Bicycle bicycleMod = gson.fromJson(bicyclJson, Bicycle.class);
+        final Bicycle bicycleMod = gson.fromJson(bicycleJson, Bicycle.class);
         System.out.println(bicycleMod);
 
         //---------------------------------------------------------------------//
