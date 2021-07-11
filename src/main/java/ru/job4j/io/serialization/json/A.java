@@ -1,6 +1,4 @@
-package ru.job4j.serialization.json;
-
-import org.json.JSONPropertyIgnore;
+package ru.job4j.io.serialization.json;
 
 public class A {
     private B b;
