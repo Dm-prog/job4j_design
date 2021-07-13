@@ -8,21 +8,56 @@ import java.util.Arrays;
 public class Bicycle {
 
     @XmlAttribute
-    private final boolean sport;
+    private boolean sport;
 
     @XmlAttribute
-    private final int speed;
+    private int speed;
 
-    private final Passport passport;
+    private Passport passport;
 
     @XmlElementWrapper(name = "wheels")
     @XmlElement(name = "wheel")
-    private final String[] wheels;
+    private String[] wheels;
+
+    public Bicycle() {
+    }
 
     public Bicycle(boolean sport, int speed, Passport passport, String... wheels) {
         this.sport = sport;
         this.speed = speed;
         this.passport = passport;
+        this.wheels = wheels;
+    }
+
+    public boolean isSport() {
+        return sport;
+    }
+
+    public void setSport(boolean sport) {
+        this.sport = sport;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    public String[] getWheels() {
+        return wheels;
+    }
+
+    public void setWheels(String[] wheels) {
         this.wheels = wheels;
     }
 
