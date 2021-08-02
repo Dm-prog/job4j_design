@@ -14,9 +14,6 @@ public class Trash implements Store {
     public boolean add(Food item) {
         if (Double.compare(item.getLivedTimePercent(), 1) > 0) {
             trashFoods.add(item);
-        } else if (Double.compare(item.getLivedTimePercent(), 0.75) > 0
-                && Double.compare(item.getLivedTimePercent(), 1) < 0) {
-            food.setDiscount(0.75);
         } else {
             return false;
         }
