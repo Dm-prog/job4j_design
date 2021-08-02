@@ -1,6 +1,6 @@
 package ru.job4j.parking;
 
-public class Truck implements Vehicle {
+public class Car implements Vehicle {
 
     @Override
     public int size(int size) {
