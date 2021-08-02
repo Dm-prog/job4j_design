@@ -16,7 +16,11 @@ public class Bicycle {
     private final String[] wheels;
 
     public static void main(String[] args) {
-        final Bicycle bicycle = new Bicycle(true, 100, new Passport("11_1111"), "frontWheel", "rearWheel");
+        final Bicycle bicycle = new Bicycle(
+                true,
+                100,
+                new Passport("11_1111"),
+                "frontWheel", "rearWheel");
 
         /* Преобразуем объект person в json-строку. */
         final Gson gson = new GsonBuilder().create();
