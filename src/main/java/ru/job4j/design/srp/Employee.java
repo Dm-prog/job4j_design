@@ -1,12 +1,29 @@
 package ru.job4j.design.srp;
 
+import com.sun.xml.txw2.annotation.XmlElement;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.Calendar;
 import java.util.Objects;
 
+@XmlElement("employee")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Employee {
+
     private String name;
+
+    @XmlAttribute
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Calendar hired;
+
+    @XmlAttribute
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Calendar fired;
+
     private double salary;
 
     public Employee(String name, Calendar hired, Calendar fired, double salary) {

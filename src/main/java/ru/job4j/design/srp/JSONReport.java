@@ -20,22 +20,7 @@ public class JSONReport implements Report {
         List<Employee> employees = store.findBy(filter);
         // преобразовать employees в JSON
         final Gson gson = new GsonBuilder().create();
-        System.out.println(gson.toJson(employees));
-
-        final String employeesJson =
-                "{"
-                        + "\"employees\":"
-                        + "[\"Ivan\",\"hired\":"
-                        + "{"
-                        + "\"calendarHired\":\"2017, 1 , 25\""
-                        + "},\"fired\":"
-                        + "{"
-                        + "\"calendarFired\":\"2018, 2 , 20\""
-                        + "},\"150\""
-                        + "]"
-                        + "}";
-        final Employee employeeMod = gson.fromJson(employeesJson, Employee.class);
-        System.out.println(employeeMod);
-        return null;
+        String json = gson.toJson(employees);
+        return json;
     }
 }
