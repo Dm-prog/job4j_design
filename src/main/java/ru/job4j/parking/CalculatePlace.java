@@ -23,6 +23,11 @@ public class CalculatePlace implements Parking {
         this.carPlaces = carPlaces;
     }
 
+    public CalculatePlace(int truckPlaces, int carPlaces) {
+        this.truckPlaces = truckPlaces;
+        this.carPlaces = carPlaces;
+    }
+
     @Override
     public boolean add(Vehicle vehicle) {
         while (carPlaces >= 1 && truckPlaces >= 1) {
@@ -30,13 +35,15 @@ public class CalculatePlace implements Parking {
                 carPlaces--;
                 return true;
             } else if (vehicle.size() > 1) {
-                if (truckPlaces >= truck.size()) {
+                if (truckPlaces >= vehicle.size()) {
                     truckPlaces--;
                     return true;
+                } else if (carPlaces >= vehicle.size()){
+                    carPlaces--;
+                    return true;
+                } else {
+                    return false;
                 }
-            } else {
-                carPlaces -= truck.size();
-                return true;
             }
         }
         return false;
