@@ -38,8 +38,8 @@ public class CalculatePlace implements Parking {
                 if (truckPlaces >= vehicle.size()) {
                     truckPlaces--;
                     return true;
-                } else if (carPlaces >= vehicle.size()){
-                    carPlaces--;
+                } else if (carPlaces >= vehicle.size()) {
+                    carPlaces -= vehicle.size();
                     return true;
                 } else {
                     return false;
