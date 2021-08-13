@@ -30,7 +30,7 @@ public class CalculatePlace implements Parking {
 
     @Override
     public boolean add(Vehicle vehicle) {
-        while (carPlaces >= 1 && truckPlaces >= 1) {
+        if (carPlaces >= 1 && truckPlaces >= 1) {
             if (vehicle.size() == 1) {
                 carPlaces--;
                 return true;
