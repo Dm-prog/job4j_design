@@ -18,4 +18,8 @@ public class Trash implements Store {
         }
         return true;
     }
+
+    public List<Food> getTrashFoods() {
+        return trashFoods;
+    }
 }

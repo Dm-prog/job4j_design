@@ -28,4 +28,8 @@ public class Shop implements Store {
         }
         return true;
     }
+
+    public List<Food> getShopFoods() {
+        return shopFoods;
+    }
 }

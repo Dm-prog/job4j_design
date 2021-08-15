@@ -18,4 +18,8 @@ public class Warehouse implements Store {
         }
         return true;
     }
+
+    public List<Food> getWarehouseFoods() {
+        return warehouseFoods;
+    }
 }
