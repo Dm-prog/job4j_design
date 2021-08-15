@@ -1,26 +1,33 @@
 package ru.job4j.menu;
 
-public class Menu implements Action<Integer, String>{
-    private PrintMenu printMenu;
+public class Menu implements Action {
+
+    private Item item;
 
     @Override
-    public boolean add(Integer number, String item) {
-        printMenu.print(number, item);
-        return false;
+    public void act() {
+
     }
 
-    @Override
-    public boolean get(Integer number) {
-        return false;
+    // добавляет потомка к предку. Служит чтоб сконструировать меню
+    public void add(String parentName, Item child) {
+        if (child.getItems().isEmpty() || (!child.getItems().contains(parentName))) {
+            child.getItems().add(child);
+        }
     }
 
-    @Override
-    public boolean delete(String item) {
-        return false;
+    // получает пункт по имени. Уже из него можно вытащить действие, которое можно будет вызвать
+    public Item get(String name) {
+        for (Item i : item.getItems()) {
+            if (i.getName().equals(name)) {
+                return i;
+            }
+        }
+        return null;
     }
 
-    @Override
-    public boolean update(String item) {
-        return false;
+    // возвращает строковое представление меню
+    public String print() {
+        return item.getItems().toString();
     }
 }
