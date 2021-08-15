@@ -8,7 +8,6 @@ import java.util.List;
 public class Warehouse implements Store {
 
     private List<Food> warehouseFoods = new ArrayList<>();
-    private Food food;
 
     @Override
     public boolean add(Food item) {
