@@ -11,9 +11,9 @@ public class Menu implements Action {
 
     // добавляет потомка к предку. Служит чтоб сконструировать меню
     public void add(String parentName, Item child) {
-        if (child.getItems().isEmpty() || (!child.getItems().contains(parentName))) {
-            child.getItems().add(child);
-        }
+//        if (child.getItems().isEmpty() || (!child.getItems().contains(parentName))) {
+//            child.getItems().add(child);
+//        }
     }
 
     // получает пункт по имени. Уже из него можно вытащить действие, которое можно будет вызвать
@@ -28,6 +28,6 @@ public class Menu implements Action {
 
     // возвращает строковое представление меню
     public String print() {
-        return item.getItems().toString();
+        return null;
     }
 }
