@@ -19,7 +19,9 @@ public class Warehouse implements Store {
         return true;
     }
 
-    public List<Food> getWarehouseFoods() {
+    @Override
+    public List<Food> clear() {
+        warehouseFoods.clear();
         return warehouseFoods;
     }
 }

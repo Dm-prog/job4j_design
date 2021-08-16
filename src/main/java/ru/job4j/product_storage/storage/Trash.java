@@ -19,7 +19,9 @@ public class Trash implements Store {
         return true;
     }
 
-    public List<Food> getTrashFoods() {
+    @Override
+    public List<Food> clear() {
+        trashFoods.clear();
         return trashFoods;
     }
 }

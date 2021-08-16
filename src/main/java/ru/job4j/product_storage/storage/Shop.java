@@ -10,10 +10,6 @@ public class Shop implements Store {
     private List<Food> shopFoods = new ArrayList<>();
     private Food food;
 
-    public Shop(Food food) {
-        this.food = food;
-    }
-
     @Override
     public boolean add(Food item) {
         if (Double.compare(item.getLivedTimePercent(), 0.25) >= 0
@@ -29,7 +25,9 @@ public class Shop implements Store {
         return true;
     }
 
-    public List<Food> getShopFoods() {
+    @Override
+    public List<Food> clear() {
+        shopFoods.clear();
         return shopFoods;
     }
 }
