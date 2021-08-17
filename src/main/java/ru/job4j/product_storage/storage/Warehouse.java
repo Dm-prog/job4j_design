@@ -21,7 +21,8 @@ public class Warehouse implements Store {
 
     @Override
     public List<Food> clear() {
+        List<Food> copy = new ArrayList<>(warehouseFoods);
         warehouseFoods.clear();
-        return warehouseFoods;
+        return copy;
     }
 }

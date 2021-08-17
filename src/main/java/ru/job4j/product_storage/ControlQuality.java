@@ -2,7 +2,6 @@ package ru.job4j.product_storage;
 
 import ru.job4j.product_storage.storage.Store;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControlQuality {
@@ -22,7 +21,9 @@ public class ControlQuality {
     }
 
     public void resort(Food food) {
-        stores.clear();
-        distribute(food);
+        for (Store store : stores) {
+            store.clear();
+            distribute(food);
+        }
     }
 }

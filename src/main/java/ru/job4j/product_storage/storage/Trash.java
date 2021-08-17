@@ -21,7 +21,8 @@ public class Trash implements Store {
 
     @Override
     public List<Food> clear() {
+        List<Food> copy = new ArrayList<>(trashFoods);
         trashFoods.clear();
-        return trashFoods;
+        return copy;
     }
 }
