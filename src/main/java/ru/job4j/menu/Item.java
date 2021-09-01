@@ -7,8 +7,8 @@ public class Item {
     private Action action;     // действия "при выборе" данного пункта
     private List<Item> items;  // дочерние элементы
 
-//    public Item() {
-//    }
+    public Item() {
+    }
 
     public Item(String name, Action action, List<Item> items) {
         this.name = name;

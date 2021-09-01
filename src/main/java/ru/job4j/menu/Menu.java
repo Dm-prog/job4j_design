@@ -7,11 +7,11 @@ public class Menu {
     private Item item;
 
     // добавляет потомка к предку. Служит чтоб сконструировать меню
-    public void add(Item parentName, Item child, Action action) {
+    public void add(Item parentName, Item child) {
         Optional<Item> parentItem = find(parentName.getName());
         Optional<Item> childrenNode = find(child.getName());
         if(parentItem.isEmpty() || childrenNode.isPresent()) {
-            parentItem.get().getItems().add(new Item(item.getName(), action, item.getItems()));
+            parentItem.get().getItems().add(child);
         }
     }
 
@@ -36,10 +36,9 @@ public class Menu {
     }
 
     // возвращает строковое представление меню
-    public String print(int lvl, StringBuilder out) {
-        String prefix = "-".repeat(lvl);
-        out.append(String.format("%sn", (prefix + " ").stripLeading()));
-        item.getItems().forEach(c -> print(lvl + 1, out));
-        return out.toString();
+    public void print(Item item) {
+        for (int i = 0; i < item.getItems().size(); i++) {
+            System.out.printf("%d. %s%n", i, item.getName());
+        }
     }
 }
