@@ -4,6 +4,18 @@ import java.util.*;
 
 public class Menu {
 
+    public static void main(String[] args) {
+        Menu menu = new Menu();
+        Action action = new StubAction();
+        Item childElements1 = new Item("name1", action, Arrays.asList(new Item()));
+        Item childElements2 = new Item("name2", action, Arrays.asList(new Item()));
+        Item childElements3 = new Item("name3", action, Arrays.asList(new Item()));
+        Item item = new Item("nameAction", action, Arrays.asList(
+                childElements1, childElements2, childElements3
+        ));
+        menu.print(item);
+    }
+
     private Item item;
 
     // добавляет потомка к предку. Служит чтоб сконструировать меню
