@@ -22,7 +22,7 @@ public class Menu {
     public void add(Item parentName, Item child) {
         Optional<Item> parentItem = find(parentName.getName());
         Optional<Item> childrenNode = find(child.getName());
-        if(parentItem.isEmpty() || childrenNode.isPresent()) {
+        if (parentItem.isEmpty() || childrenNode.isPresent()) {
             parentItem.get().getItems().add(child);
         }
     }
