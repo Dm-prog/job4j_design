@@ -1,6 +1,6 @@
-package ru.job4j.product_storage.storage;
+package ru.job4j.productStorage.storage;
 
-import ru.job4j.product_storage.Food;
+import ru.job4j.productStorage.Food;
 
 import java.util.ArrayList;
 import java.util.List;

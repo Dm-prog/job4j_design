@@ -1,4 +1,4 @@
-package ru.job4j.product_storage;
+package ru.job4j.productStorage;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
