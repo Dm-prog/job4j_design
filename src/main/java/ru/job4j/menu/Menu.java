@@ -5,26 +5,16 @@ import java.util.*;
 public class Menu {
 
     public static void main(String[] args) {
-        Item parentItem1 = new Item();
-        parentItem1.setName("1");
-        Item parentItem2 = new Item();
-        parentItem2.setName("2");
-        Item parentItem3 = new Item();
-        parentItem3.setName("3");
-
         List<Item> itemsChild = new ArrayList<>();
-        itemsChild.add(new Item());
-        itemsChild.add(new Item());
-        itemsChild.add(new Item());
-        Item item = new Item("1", new StubAction(), itemsChild);
+        Item item = new Item("Something from the parent menu", new StubAction(), itemsChild);
         Menu menu = new Menu(item);
 
-        menu.add(parentItem1, item.getItems().get(0));
         menu.find(item.getName());
         menu.print(item);
     }
 
     private Item item;
+    private int count = 0;
 
     public Menu(Item item) {
         this.item = item;
@@ -61,6 +51,8 @@ public class Menu {
 
     // возвращает строковое представление меню
     public void print(Item item) {
+        count++;
+        System.out.printf("%d. %s%n", count, item.getName());
         for (int i = 0; i < item.getItems().size(); i++) {
             System.out.printf("%d. %s%n", i, item.getName());
             print(item);
