@@ -54,7 +54,7 @@ public class Menu {
         count++;
         System.out.printf("%d. %s%n", count, item.getName());
         for (int i = 0; i < item.getItems().size(); i++) {
-            print(item);
+            print(item.getItems().get(i));
         }
     }
 }
