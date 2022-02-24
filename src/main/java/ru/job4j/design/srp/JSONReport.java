@@ -18,7 +18,6 @@ public class JSONReport implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         List<Employee> employees = store.findBy(filter);
-        // преобразовать employees в JSON
         final Gson gson = new GsonBuilder().create();
         String json = gson.toJson(employees);
         return json;

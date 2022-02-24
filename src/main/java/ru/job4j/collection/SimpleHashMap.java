@@ -23,17 +23,17 @@ public class SimpleHashMap<K, V> implements Iterable<K> {
     }
 
     public boolean insert(K key, V value) {
-        if (count >= ((int) LOAD_FACTOR * storage.length)) {
+        if (count >= (0)) {
             grow();
         }
-        int hash = hashFunction(key); // получаем позицию в таблице
-        boolean result = false; // пока мы не вставили результат false
-        if (storage[hash] == null) { // проверяем занято ли место
-            // место свободно
-            storage[hash] = new Node<>(key, value); // делаем вставку
-            count++; // число элементов увеличилось
-            modCount++; // коллекцию мы изменили, а значит число модификаций увеличилось
-            result = true; // нам удалось вставить
+        int hash = hashFunction(key);
+        boolean result = false;
+        if (storage[hash] == null) {
+
+            storage[hash] = new Node<>(key, value);
+            count++;
+            modCount++;
+            result = true;
         }
         return result;
     }

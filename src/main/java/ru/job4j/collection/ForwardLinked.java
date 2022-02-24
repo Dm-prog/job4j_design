@@ -10,10 +10,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         if (head == null) {
             throw new NoSuchElementException();
         } else {
-            Node<T> oldFirst = this.head; //получаем ссылку на удаляемый элемент
-            this.head = this.head.next;       //удаляем первый  путем присвоения полю класса нового значения
-            oldFirst.next = null;     //обнуляем ссылку next у удаляемой ноды чтоб избежать утечки памяти
-            return oldFirst.value;    //возвращаем значение из удаленной ноды
+            Node<T> oldFirst = this.head;
+            this.head = this.head.next;
+            oldFirst.next = null;
+            return oldFirst.value;
         }
     }
 

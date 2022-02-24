@@ -23,12 +23,12 @@ public class ControlQuality {
 
     public void resort() {
 
-        // собираем все продукты воедино, очищая при этом хранилища
+
         List<Food> foods = new ArrayList<>();
         for (Store store : stores) {
             foods.addAll(store.clear());
         }
-        // заново распределяем продукты
+
         for (Food food : foods) {
             distribute(food);
         }

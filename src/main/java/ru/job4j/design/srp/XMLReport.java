@@ -20,7 +20,6 @@ public class XMLReport implements Report {
     @Override
     public String generate(Predicate<Employee> filter) throws JAXBException {
         List<Employee> employees = store.findBy(filter);
-        // преобразовать employees в XML
         JAXBContext context = JAXBContext.newInstance(Employee.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
