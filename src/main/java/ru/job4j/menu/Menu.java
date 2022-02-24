@@ -1,62 +1,71 @@
 package ru.job4j.menu;
 
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-public class Menu {
+public interface Menu {
+    String ROOT = null; /* Константа, указывающая, что нужно добавить элемент в корень */
 
-    public static void main(String[] args) {
-        List<Item> itemsChild = new ArrayList<>();
-        Item item = new Item("Something from the parent menu", new StubAction(), itemsChild);
-        Menu menu = new Menu(item);
+    boolean add(String parentName, String childName, ActionDelegate actionDelegate);
 
-        menu.find(item.getName());
-        menu.print(item);
-    }
+    Optional<MenuItemInfo> select(String itemName);
 
-    private Item item;
-    private int count = 0;
+    class MenuItemInfo {
 
-    public Menu(Item item) {
-        this.item = item;
-    }
+        private final String name;
+        private final List<String> children;
+        private final ActionDelegate actionDelegate;
+        private final String number;
 
-    // добавляет потомка к предку. Служит чтоб сконструировать меню
-    public void add(Item parentName, Item child) {
-        Optional<Item> parentItem = find(parentName.getName());
-        Optional<Item> childrenItem = find(child.getName());
-        if (parentItem.isEmpty() || childrenItem.isPresent()) {
-            parentItem.get().getItems().add(child);
+        public MenuItemInfo(MenuItem menuItem, String number) {
+            this.name = menuItem.getName();
+            this.children = menuItem.getChildren().stream().map(MenuItem::getName).collect(Collectors.toList());
+            this.actionDelegate = menuItem.getActionDelegate();
+            this.number = number;
         }
-    }
 
-    private Optional<Item> find(String name) {
-        Optional<Item> found = Optional.empty();
-        Queue<Item> queue = new LinkedList<>(List.of(item));
-        while (!queue.isEmpty()) {
-            Item el = queue.poll();
-            if (Objects.equals(el, name)) {
-                found = Optional.of(el);
-                break;
+        public MenuItemInfo(String name, List<String> children, ActionDelegate actionDelegate, String number) {
+            this.name = name;
+            this.children = children;
+            this.actionDelegate = actionDelegate;
+            this.number = number;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<String> getChildren() {
+            return children;
+        }
+
+        public ActionDelegate getActionDelegate() {
+            return actionDelegate;
+        }
+
+        public String getNumber() {
+            return number;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
             }
-            queue.addAll(el.getItems());
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            MenuItemInfo that = (MenuItemInfo) o;
+            return Objects.equals(name, that.name)
+                    && Objects.equals(children, that.children)
+                    && Objects.equals(number, that.number);
         }
-        return found;
-    }
 
-    // получает пункт по имени. Уже из него можно вытащить действие, которое можно будет вызвать
-    public Item get(String name) {
-        Optional<Item> optional = find(name);
-        return optional.orElse(null);
-    }
-
-    // возвращает строковое представление меню
-    public void print(Item item) {
-        count++;
-        System.out.printf("%d. %s%n", count, item.getName());
-        for (int i = 0; i < item.getItems().size(); i++) {
-            print(item.getItems().get(i));
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, children, number);
         }
     }
 }
-
-
