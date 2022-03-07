@@ -23,19 +23,15 @@ public class SimpleMenu implements Menu {
     }
 
     private Optional<ItemInfo> findItem(String name) {
-        Optional<ItemInfo> found = Optional.empty();
-        List<MenuItem> children = menuItem.getChildren();
-        while (!children.isEmpty()) {
-            for (int i = 0; i < children.size(); i++) {
-                ItemInfo el = (ItemInfo) children.get(i);
-                if (Objects.equals(el, name)) {
-                    found = Optional.ofNullable(el);
-                    break;
-                }
-                children.add(el.menuItem);
+        ItemInfo currentItem = null;
+        DFSIterator iterator = new DFSIterator();
+        while (iterator.hasNext()) {
+            currentItem = iterator.next();
+            if (name != null) {
+                currentItem.menuItem.getChildren();
             }
         }
-        return found;
+        return Optional.ofNullable(currentItem);
     }
 
     private static class SimpleMenuItem implements MenuItem {
@@ -93,7 +89,7 @@ public class SimpleMenu implements Menu {
             String lastNumber = numbers.removeFirst();
             List<MenuItem> children = current.getChildren();
             int currentNumber = children.size();
-            for (var i = children.listIterator(children.size()); i.hasPrevious();) {
+            for (var i = children.listIterator(children.size()); i.hasPrevious(); ) {
                 stack.addFirst(i.previous());
                 numbers.addFirst(lastNumber.concat(String.valueOf(currentNumber--)).concat("."));
             }
