@@ -3,7 +3,6 @@ package ru.job4j.io.serialization.json;
 public class A {
     private B b;
 
-    //@JSONPropertyIgnore
     public B getB() {
         return b;
     }

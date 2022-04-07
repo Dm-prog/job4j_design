@@ -45,6 +45,6 @@ public class AnalizeTest {
         List<Analize.User> prev = Arrays.asList(previos1, previos2);
         List<Analize.User> cur = Arrays.asList(current);
         Analize.Info diff = analize.diff(prev, cur);
-        assertThat(diff.getDeleted(), is(2 + 2 - 1)); //previous.size() + info.added - current.size();
+        assertThat(diff.getDeleted(), is(2 + 2 - 1));
     }
 }

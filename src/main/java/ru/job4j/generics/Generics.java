@@ -23,12 +23,6 @@ public class Generics {
         gen.printLowerBoundedWildCard(second);
     }
 
-//    public void printObject(List<Object> list) {
-//        for (Object next : list) {
-//            System.out.println("Текущий элемент: " + next);
-//        }
-//    }
-
     public void printBoundedWildCard(List<? extends Predator> list) {
         for (Object next : list) {
             System.out.println("Текущий элемент: " + next);

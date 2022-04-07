@@ -22,11 +22,9 @@ public class Bicycle {
                 new Passport("11_1111"),
                 "frontWheel", "rearWheel");
 
-        /* Преобразуем объект person в json-строку. */
         final Gson gson = new GsonBuilder().create();
         System.out.println(gson.toJson(bicycle));
 
-        /* Модифицируем json-строку */
         final String bicycleJson =
                 "{"
                         + "\"sport\":true,"
@@ -41,18 +39,13 @@ public class Bicycle {
         final Bicycle bicycleMod = gson.fromJson(bicycleJson, Bicycle.class);
         System.out.println(bicycleMod);
 
-        //---------------------------------------------------------------------//
-
-        /* JSONObject из json-строки строки */
         JSONObject jsonPassport = new JSONObject("{\"passportDetails\":\"11_1111\"}");
 
-        /* JSONArray из ArrayList */
         List<String> list = new ArrayList<>();
         list.add("frontWheel");
         list.add("rearWheel");
         JSONArray jsonWheels = new JSONArray(list);
 
-        /* JSONObject напрямую методом put */
         final Bicycle bicycle1 = new Bicycle(true, 80, new Passport("11_1111"), "frontWheel", "rearWheel");
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("sport", bicycle.isSport());
@@ -60,10 +53,8 @@ public class Bicycle {
         jsonObject.put("passport", jsonPassport);
         jsonObject.put("wheels", jsonWheels);
 
-        /* Выведем результат в консоль */
         System.out.println(jsonObject.toString());
 
-        /* Преобразуем объект person в json-строку */
         System.out.println(new JSONObject(bicycle1).toString());
     }
 

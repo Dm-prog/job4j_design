@@ -24,7 +24,6 @@ public class UserDemo {
         for (int i = 0; i < 8000; i++) {
             new User(i, "name_" + i);
         }
-        //System.gc();
         info();
     }
 }
